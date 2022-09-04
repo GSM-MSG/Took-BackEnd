@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @IdClass(CardExchangeId.class)
 public class CardExchange {
+    @Id
     @ManyToOne
     @JoinColumn(name = "businesscard_uuid")
     private BusinessCard businessCard;
@@ -17,7 +18,6 @@ public class CardExchange {
     @JoinColumn(name = "user_uuid")
     private User user;
 
-    @Id
     @ManyToOne
     @JoinColumn(name = "businesscard_user_uuid")
     private User businessUser;
