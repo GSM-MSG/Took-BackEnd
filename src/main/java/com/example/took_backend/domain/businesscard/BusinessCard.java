@@ -1,5 +1,6 @@
 package com.example.took_backend.domain.businesscard;
 
+import com.example.took_backend.domain.businesscard.enumType.Distinguish;
 import com.example.took_backend.domain.cardexhange.CardExchange;
 import com.example.took_backend.domain.user.User;
 import com.example.took_backend.global.entity.BaseTimeEntity;
@@ -31,6 +32,11 @@ public class BusinessCard extends BaseTimeEntity {
     private UUID uuid = UUID.randomUUID();
 
     private String url;
+
+    // 명함 앞뒤 (Front , Back)
+    @Column(length = 5)
+    @Enumerated(EnumType.STRING)
+    private Distinguish distinguish;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_uuid")
