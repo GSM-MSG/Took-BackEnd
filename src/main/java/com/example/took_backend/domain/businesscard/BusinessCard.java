@@ -1,6 +1,5 @@
 package com.example.took_backend.domain.businesscard;
 
-import com.example.took_backend.domain.businesscard.enumType.Distinguish;
 import com.example.took_backend.domain.cardexhange.CardExchange;
 import com.example.took_backend.domain.user.User;
 import com.example.took_backend.global.entity.BaseTimeEntity;
@@ -9,11 +8,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -31,12 +27,9 @@ public class BusinessCard extends BaseTimeEntity {
     @Builder.Default
     private UUID uuid = UUID.randomUUID();
 
-    private String url;
+    private String frontUrl;
 
-    // 명함 앞뒤 (Front , Back)
-    @Column(length = 5)
-    @Enumerated(EnumType.STRING)
-    private Distinguish distinguish;
+    private String backUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_uuid")
