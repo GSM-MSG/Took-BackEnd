@@ -31,6 +31,7 @@ public class User extends BaseTimeEntity {
 
     private String email;
 
+    @Column(length = 60)
     private String password;
 
     @OneToMany(mappedBy = "uuid")
