@@ -2,12 +2,13 @@ package com.example.took_backend.domain.cardexhange;
 
 import com.example.took_backend.domain.businesscard.BusinessCard;
 import com.example.took_backend.domain.user.User;
+import com.example.took_backend.global.entity.BaseTimeEntity;
 
 import javax.persistence.*;
 
 @Entity
 @IdClass(CardExchangeId.class)
-public class CardExchange {
+public class CardExchange extends BaseTimeEntity {
     @Id
     @ManyToOne
     @JoinColumn(name = "businesscard_uuid")

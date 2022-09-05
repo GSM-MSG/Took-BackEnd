@@ -27,8 +27,10 @@ public class BusinessCard extends BaseTimeEntity {
     @Builder.Default
     private UUID uuid = UUID.randomUUID();
 
+    @Column(name = "front_url")
     private String frontUrl;
 
+    @Column(name = "back_url")
     private String backUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
