@@ -1,8 +1,11 @@
 package com.example.took_backend.global.exception.handler;
 
+import com.example.took_backend.global.exception.ErrorCode;
 import com.example.took_backend.global.exception.ErrorResponse;
-import com.example.took_backend.global.exception.TookException;
+import com.example.took_backend.global.exception.exceptionCollection.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -15,11 +18,12 @@ import java.net.BindException;
 
 @RestControllerAdvice
 @Slf4j
-public class TookExceptionHandler {
-    @ExceptionHandler(TookException.class)
-    public ResponseEntity<ErrorResponse> handleTookException(TookException e){
-        log.info("code : '{}''", e.getErrorCode());
-       return ErrorResponse.toResponseEntity(e.getErrorCode());
+@Order(Ordered.HIGHEST_PRECEDENCE)
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler()
+    public ResponseEntity<ErrorResponse> handleUserNotFoundException(UserNotFoundException e){
+        return ErrorResponse.toResponseEntity(e.getErrorCode());
     }
 
     @ExceptionHandler(BindException.class)
