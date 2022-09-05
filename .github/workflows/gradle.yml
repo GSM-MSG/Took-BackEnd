@@ -26,15 +26,6 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
 
-
-    - name: Setup MySQL
-      uses: samin/mysql-action@v1
-      with:
-        character set server: 'utf8'
-        mysql database: took
-        mysql user: tookg
-        mysql password: 1234
-
     - name: Create application.yml
       run: |
         touch ./src/main/resources/application.yml
