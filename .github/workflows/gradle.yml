@@ -20,6 +20,10 @@ jobs:
     services:
       mysql:
         image: mysql:5.7
+        env:
+          MYSQL_USER: user
+          MYSQL_PASSWORD: 1234
+          MYSQL_ROOT_PASSWORD: root
         ports:
           - 3306
         options: >-  # 서비스에 걸어줄 옵션
