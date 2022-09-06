@@ -5,10 +5,10 @@ import lombok.Getter;
 
 @Getter
 public class AuthCodeExpiredException extends RuntimeException{
-    private ErrorCode errorCode;
+    private final ErrorCode errorCode;
 
-    public AuthCodeExpiredException(String message, ErrorCode errorCode){
+    public AuthCodeExpiredException(String message){
         super(message);
-        this.errorCode=errorCode;
+        this.errorCode = ErrorCode.AUTH_CODE_EXPIRED;
     }
 }
