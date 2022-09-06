@@ -18,7 +18,7 @@ public class EmailAuthEntity {
     @Id
     private String email;
 
-    @Length(max = 36)
+    @Length(max = 24)
     private String randomValue;
     private Boolean authentication;
 
