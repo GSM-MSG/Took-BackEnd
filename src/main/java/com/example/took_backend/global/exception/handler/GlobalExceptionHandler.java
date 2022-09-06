@@ -2,6 +2,7 @@ package com.example.took_backend.global.exception.handler;
 
 import com.example.took_backend.global.exception.ErrorCode;
 import com.example.took_backend.global.exception.ErrorResponse;
+import com.example.took_backend.global.exception.exceptionCollection.TokenExpirationException;
 import com.example.took_backend.global.exception.exceptionCollection.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.servlet.http.HttpServletRequest;
 import java.net.BindException;
 
 @RestControllerAdvice
@@ -39,5 +41,16 @@ public class GlobalExceptionHandler {
         }
         builder.deleteCharAt(builder.lastIndexOf(","));
         return ErrorResponse.toResponseEntity(HttpStatus.BAD_REQUEST, builder.toString());
+    }
+
+    @ExceptionHandler(TokenExpirationException.class)
+    public ResponseEntity<ErrorResponse> handleTokenExpirationException(HttpServletRequest request, TokenExpirationException e) {
+        return ErrorResponse.toResponseEntity(e.getErrorCode());
+    }
+
+    private void printError(HttpServletRequest request, RuntimeException ex, String message) {
+        log.error(request.getRequestURI());
+        log.error(message);
+        ex.printStackTrace();
     }
 }
