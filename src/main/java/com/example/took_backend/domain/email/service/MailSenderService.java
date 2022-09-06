@@ -2,6 +2,7 @@ package com.example.took_backend.domain.email.service;
 
 import com.example.took_backend.domain.email.EmailAuthEntity;
 import com.example.took_backend.domain.email.exception.AuthCodeExpiredException;
+import com.example.took_backend.domain.email.exception.ManyRequestEmailAuthException;
 import com.example.took_backend.domain.email.presentation.dto.request.EmailSentDto;
 import com.example.took_backend.domain.email.repository.EmailAuthRepository;
 import com.example.took_backend.global.exception.ErrorCode;
@@ -38,7 +39,19 @@ public class MailSenderService {
     private void sendAuthEmail(String email, String authKey) {
         String subject = "TOOK 인증번호";
         String text = "회원 가입을 위한 인증번호는 " + authKey + "입니다. <br />";
+        EmailAuthEntity emailAuthEntity = emailAuthRepository.findById(email)
+                .orElse(EmailAuthEntity.builder()
+                        .authentication(false)
+                        .randomValue(authKey)
+                        .attemptCount(0)
+                        .email(email)
+                        .build());
+        if (emailAuthEntity.getAttemptCount() >= 3)
+            throw new ManyRequestEmailAuthException("발송 횟수 초과");
+        emailAuthEntity.updateRandomValue(authKey);
+        emailAuthEntity.increaseAttemptCount();
 
+        emailAuthRepository.save(emailAuthEntity);
         try{
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage,true,"utf-8");
