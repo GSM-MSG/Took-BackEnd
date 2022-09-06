@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @RestController
@@ -23,7 +24,7 @@ public class EmailController {
         return ResponseEntity.ok().build();
     }
     @RequestMapping(method = RequestMethod.HEAD)
-    public ResponseEntity<Void>aa(@NotBlank @RequestParam String email, @RequestParam String authKey){
+    public ResponseEntity<Void> mailVerify(@Email @RequestParam String email, @RequestParam String authKey){
         mailCheckerService.execute(email,authKey);
         return ResponseEntity.ok().build();
     }
