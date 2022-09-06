@@ -12,10 +12,6 @@ public class AuthDetails implements UserDetails {
 
     private final User user;
 
-    public String getEmail() {
-        return user.getEmail();
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
