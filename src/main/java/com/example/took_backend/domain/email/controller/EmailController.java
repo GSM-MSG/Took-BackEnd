@@ -10,13 +10,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("email")
 public class EmailController {
     private final MailSenderService mailSenderService;
     @PostMapping
-    public ResponseEntity<Void> authEmail(@RequestBody EmailSentDto emailSentDto){
+    public ResponseEntity<Void> authEmail(@RequestBody @Valid EmailSentDto emailSentDto){
         mailSenderService.execute(emailSentDto);
         return ResponseEntity.ok().build();
     }
