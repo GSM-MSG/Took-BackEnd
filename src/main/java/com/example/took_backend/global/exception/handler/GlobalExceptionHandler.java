@@ -3,6 +3,7 @@ package com.example.took_backend.global.exception.handler;
 import com.example.took_backend.global.exception.ErrorCode;
 import com.example.took_backend.global.exception.ErrorResponse;
 import com.example.took_backend.global.exception.exceptionCollection.TokenExpirationException;
+import com.example.took_backend.global.exception.exceptionCollection.TokenNotVaildException;
 import com.example.took_backend.global.exception.exceptionCollection.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
@@ -45,6 +46,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(TokenExpirationException.class)
     public ResponseEntity<ErrorResponse> handleTokenExpirationException(HttpServletRequest request, TokenExpirationException e) {
+        return ErrorResponse.toResponseEntity(e.getErrorCode());
+    }
+
+    @ExceptionHandler(TokenNotVaildException.class)
+    public ResponseEntity<ErrorResponse> handleTokenNotValidException(HttpServletRequest request, TokenNotVaildException e) {
         return ErrorResponse.toResponseEntity(e.getErrorCode());
     }
 
