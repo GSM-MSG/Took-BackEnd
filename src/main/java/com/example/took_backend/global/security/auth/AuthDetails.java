@@ -24,7 +24,7 @@ public class AuthDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return user.getEmail();
     }
 
     @Override
