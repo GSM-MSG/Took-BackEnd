@@ -29,7 +29,7 @@ public class MailSenderService {
     public void execute(EmailSentDto emailSentDto){
 
         Random random = new Random();
-        String authKey = String.valueOf(random.nextInt(888888) + 111111);
+        String authKey = String.valueOf(random.nextInt(8888) + 1111);
 
         sendAuthEmail(emailSentDto.getEmail(),authKey);
     }
