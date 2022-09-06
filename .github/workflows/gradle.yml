@@ -18,6 +18,9 @@ permissions: write-all
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        redis-version: [5]
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 11
@@ -25,6 +28,12 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
+
+    - name: Start Redis
+      uses: supercharge/redis-github-action@1.4.0
+      with:
+        redis-version: ${{ matrix.redis-version }}
+        redis-port: 6379
 
     - name: Create application.yml
       run: |
