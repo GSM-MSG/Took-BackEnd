@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AuthCodeExpiredException.class)
     public ResponseEntity<ErrorResponse> DuplicateMemberExceptionHandler(HttpServletRequest request, AuthCodeExpiredException ex){
         printError(request, ex, ex.getErrorCode().getMessage());
-        ErrorResponse errorResponse = new ErrorResponse(ex.getErrorCode().isSuccess(), ex.getErrorCode().getMessage(), ex.getErrorCode().getStatus());
+        ErrorResponse errorResponse = new ErrorResponse(ex.getErrorCode().getMessage(), ex.getErrorCode().getStatus());
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(ex.getErrorCode().getStatus()));
     }
 

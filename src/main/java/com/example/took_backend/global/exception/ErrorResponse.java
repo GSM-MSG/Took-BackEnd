@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 @Getter
 @AllArgsConstructor
 public class ErrorResponse {
-    private final boolean success;
     private final String message;
     private final int status;
 }
