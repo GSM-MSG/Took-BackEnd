@@ -46,7 +46,7 @@ public class MailSenderService {
             helper.setText(text,true);
             mailSender.send(mimeMessage);
         } catch (MessagingException e) {
-            throw new AuthCodeExpiredException("메일 발송에 실패했습니다", ErrorCode.AuthCodeExpiredException);
+            throw new AuthCodeExpiredException("메일 발송에 실패했습니다");
         }
     }
 
