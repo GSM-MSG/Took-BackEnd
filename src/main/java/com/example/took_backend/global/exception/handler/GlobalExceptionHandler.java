@@ -1,20 +1,18 @@
 package com.example.took_backend.global.exception.handler;
 
 import com.example.took_backend.domain.email.exception.AuthCodeExpiredException;
+import com.example.took_backend.domain.email.exception.AuthCodeMismatchException;
 import com.example.took_backend.global.exception.ErrorResponse;
+import com.example.took_backend.global.exception.exceptionCollection.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
-import java.net.BindException;
 
 @RestControllerAdvice
 @Slf4j
@@ -45,6 +43,16 @@ public class GlobalExceptionHandler {
         return ErrorResponse()
     }
     */
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorResponse> UserNotFoundException(UserNotFoundException exception){
+        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(),exception.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
+    }
+    @ExceptionHandler(AuthCodeMismatchException.class)
+    public ResponseEntity<ErrorResponse> AuthCodeMisMatch(AuthCodeMismatchException exception){
+        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(),exception.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorResponse,HttpStatus.valueOf(exception.getErrorCode().getStatus()));
+    }
 
     private void printError(HttpServletRequest request, RuntimeException ex, String message) {
         log.error(request.getRequestURI());
