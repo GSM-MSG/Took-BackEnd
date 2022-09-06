@@ -2,6 +2,7 @@ package com.example.took_backend.global.exception.handler;
 
 import com.example.took_backend.domain.email.exception.AuthCodeExpiredException;
 import com.example.took_backend.domain.email.exception.AuthCodeMismatchException;
+import com.example.took_backend.domain.email.exception.ManyRequestEmailAuthException;
 import com.example.took_backend.global.exception.ErrorResponse;
 import com.example.took_backend.global.exception.exceptionCollection.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -43,6 +44,12 @@ public class GlobalExceptionHandler {
         return ErrorResponse()
     }
     */
+    @ExceptionHandler(ManyRequestEmailAuthException.class)
+    public ResponseEntity<ErrorResponse> ManyRequestEmailAuthException(ManyRequestEmailAuthException exception){
+        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(),exception.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
+    }
+
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorResponse> UserNotFoundException(UserNotFoundException exception){
         ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(),exception.getErrorCode().getStatus());
