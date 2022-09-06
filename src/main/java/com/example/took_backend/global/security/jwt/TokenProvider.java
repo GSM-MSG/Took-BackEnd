@@ -1,5 +1,7 @@
 package com.example.took_backend.global.security.jwt;
 
+import com.example.took_backend.global.exception.ErrorCode;
+import com.example.took_backend.global.exception.exceptionCollection.TokenExpirationException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -17,7 +19,7 @@ import java.util.Date;
 public class TokenProvider {
     private final long ACCESS_TOKEN_EXPIRE_TIME = 3000;
     private final long REFRESH_TOKEN_EXPIRE_TIME = ACCESS_TOKEN_EXPIRE_TIME * 24 * 30 * 6;
-    @Value("${jwt.secret}")
+    @Value("{spring.jwt.secret}")
     private String SECRET_KEY;
 
     @AllArgsConstructor
@@ -50,7 +52,7 @@ public class TokenProvider {
                     .parseClaimsJws(token)
                     .getBody();
         } catch (ExpiredJwtException e) {
-            throw new ();
+            throw new TokenExpirationException("The token has expired.", ErrorCode.TOKEN_EXPIRATION);
         }
 
     }

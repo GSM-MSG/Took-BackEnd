@@ -21,6 +21,7 @@ repositories {
 }
 
 dependencies {
+
     // mysql , jpa
 
     runtimeOnly 'com.h2database:h2'
