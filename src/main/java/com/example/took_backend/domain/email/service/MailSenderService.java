@@ -24,6 +24,7 @@ import java.util.Random;
 public class MailSenderService {
     private final JavaMailSender mailSender;
     private final EmailAuthRepository emailAuthRepository;
+
     @Async
     @Transactional
     public void execute(EmailSentDto emailSentDto){
