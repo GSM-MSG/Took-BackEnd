@@ -52,7 +52,7 @@ public class TokenProvider {
                     .parseClaimsJws(token)
                     .getBody();
         } catch (ExpiredJwtException e) {
-            throw new TokenExpirationException("The token has expired.", ErrorCode.TOKEN_EXPIRATION);
+            throw new TokenExpirationException("The token has expired.");
         }
 
     }

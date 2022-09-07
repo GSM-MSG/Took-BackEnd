@@ -9,9 +9,8 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public class TokenExpirationException extends RuntimeException {
     private final ErrorCode errorCode;
-
-    public TokenExpirationException(String message, ErrorCode errorCode) {
+    public TokenExpirationException(String message) {
         super(message);
-        this.errorCode = errorCode;
+        errorCode = ErrorCode.TOKEN_EXPIRATION;
     }
 }
