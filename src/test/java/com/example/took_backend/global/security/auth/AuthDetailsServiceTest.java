@@ -8,18 +8,16 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-class MyUserDetailServiceTest {
+class AuthDetailsServiceTest {
 
     @Autowired
     ApplicationContext applicationContext;
 
     @Test
     public void testDi() {
-        MyUserDetailService bean = applicationContext.getBean(MyUserDetailService.class);
+        AuthDetailsService bean = applicationContext.getBean(AuthDetailsService.class);
         assertThat(bean).isNotNull();
     }
 

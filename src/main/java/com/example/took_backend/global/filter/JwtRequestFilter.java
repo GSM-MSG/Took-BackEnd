@@ -2,15 +2,11 @@ package com.example.took_backend.global.filter;
 
 import com.example.took_backend.global.exception.ErrorCode;
 import com.example.took_backend.global.exception.exceptionCollection.TokenNotVaildException;
-import com.example.took_backend.global.security.auth.AuthDetails;
-import com.example.took_backend.global.security.auth.MyUserDetailService;
+import com.example.took_backend.global.security.auth.AuthDetailsService;
 import com.example.took_backend.global.security.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -25,7 +21,7 @@ import java.io.IOException;
 public class JwtRequestFilter extends OncePerRequestFilter {
 
         private final TokenProvider tokenProvider;
-        private final MyUserDetailService userDetailService;
+        private final AuthDetailsService userDetailService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -43,8 +39,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     private void registerSecurityContext(HttpServletRequest request, String email) {
         UserDetails userDetails = userDetailService.loadUserByUsername(email);
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-        usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+        // SecurityContextHolder는 보안 주체 세부 정보 응용프로그램의 현재 보안 컨텍스트 에 대한 정보가 저장됨
+        SecurityContextHolder.getContext().getAuthentication().getName();
     }
 }
