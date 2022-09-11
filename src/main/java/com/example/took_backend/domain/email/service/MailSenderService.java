@@ -5,7 +5,6 @@ import com.example.took_backend.domain.email.exception.AuthCodeExpiredException;
 import com.example.took_backend.domain.email.exception.ManyRequestEmailAuthException;
 import com.example.took_backend.domain.email.presentation.dto.request.EmailSentDto;
 import com.example.took_backend.domain.email.repository.EmailAuthRepository;
-import com.example.took_backend.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -50,6 +49,7 @@ public class MailSenderService {
             throw new ManyRequestEmailAuthException("발송 횟수 초과");
         emailAuthEntity.updateRandomValue(authKey);
         emailAuthEntity.increaseAttemptCount();
+
 
         emailAuthRepository.save(emailAuthEntity);
         try{

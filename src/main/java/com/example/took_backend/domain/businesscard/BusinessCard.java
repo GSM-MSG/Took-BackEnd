@@ -1,5 +1,6 @@
 package com.example.took_backend.domain.businesscard;
 
+import com.example.took_backend.domain.businesscard.data.request.CreateBusinessCardRequest;
 import com.example.took_backend.domain.cardexhange.CardExchange;
 import com.example.took_backend.domain.user.User;
 import com.example.took_backend.global.entity.BaseTimeEntity;
@@ -25,7 +26,7 @@ public class BusinessCard extends BaseTimeEntity {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(columnDefinition = "VARBINARY(36)")
     @Builder.Default
-    private UUID uuid = UUID.randomUUID();
+    private String uuid = UUID.randomUUID().toString();
 
     @Column(name = "front_url")
     private String frontUrl;
