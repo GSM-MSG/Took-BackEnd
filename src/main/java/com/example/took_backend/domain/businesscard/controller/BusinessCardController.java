@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("business-cards")
 @RequiredArgsConstructor
@@ -17,7 +19,7 @@ public class BusinessCardController {
     private final CreateBusinessCardService createBusinessCardService;
 
     @PostMapping
-    public ResponseEntity<Void> createBusinessCard(@RequestBody CreateBusinessCardRequest createBusinessCardRequest){
+    public ResponseEntity<Void> createBusinessCard(@Valid @RequestBody CreateBusinessCardRequest createBusinessCardRequest){
         createBusinessCardService.execute(createBusinessCardRequest);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
