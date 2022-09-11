@@ -1,9 +1,12 @@
 package com.example.took_backend.global.exception.handler;
 
 import com.example.took_backend.domain.email.exception.AuthCodeExpiredException;
+import com.example.took_backend.domain.email.exception.AuthCodeMismatchException;
+import com.example.took_backend.domain.email.exception.ManyRequestEmailAuthException;
 import com.example.took_backend.global.exception.ErrorResponse;
 import com.example.took_backend.global.exception.exceptionCollection.TokenExpirationException;
 import com.example.took_backend.global.exception.exceptionCollection.TokenNotVaildException;
+import com.example.took_backend.global.exception.exceptionCollection.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -55,6 +58,21 @@ public class GlobalExceptionHandler {
         printError(request, ex, ex.getErrorCode().getMessage());
         ErrorResponse errorResponse = new ErrorResponse(ex.getErrorCode().getMessage(), ex.getErrorCode().getStatus());
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(ex.getErrorCode().getStatus()));
+    @ExceptionHandler(ManyRequestEmailAuthException.class)
+    public ResponseEntity<ErrorResponse> ManyRequestEmailAuthException(ManyRequestEmailAuthException exception){
+        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(),exception.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorResponse> UserNotFoundException(UserNotFoundException exception){
+        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(),exception.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
+    }
+    @ExceptionHandler(AuthCodeMismatchException.class)
+    public ResponseEntity<ErrorResponse> AuthCodeMisMatch(AuthCodeMismatchException exception){
+        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(),exception.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorResponse,HttpStatus.valueOf(exception.getErrorCode().getStatus()));
     }
 
     private void printError(HttpServletRequest request, RuntimeException ex, String message) {
