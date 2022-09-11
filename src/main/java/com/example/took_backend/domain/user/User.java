@@ -27,7 +27,7 @@ public class User extends BaseTimeEntity {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(columnDefinition = "VARBINARY(36)")
     @Builder.Default
-    private UUID uuid = UUID.randomUUID();
+    private String uuid = UUID.randomUUID().toString();
 
     private String email;
 
