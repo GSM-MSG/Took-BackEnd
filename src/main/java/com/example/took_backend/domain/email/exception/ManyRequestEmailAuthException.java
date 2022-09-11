@@ -9,6 +9,6 @@ public class ManyRequestEmailAuthException extends RuntimeException{
 
     public ManyRequestEmailAuthException(String message){
         super(message);
-        this.errorCode = ErrorCode.AUTH_CODE_EXPIRED;
+        this.errorCode = ErrorCode.MANY_REQUEST_EMAIL_AUTH;
     }
 }
