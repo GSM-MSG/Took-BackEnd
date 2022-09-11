@@ -1,8 +1,8 @@
 package com.example.took_backend.global.security.jwt;
 
-import com.example.took_backend.global.exception.ErrorCode;
 import com.example.took_backend.global.exception.exceptionCollection.TokenExpirationException;
 import com.example.took_backend.global.security.auth.AuthDetailsService;
+import com.example.took_backend.global.security.jwt.properties.JwtProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -24,10 +24,9 @@ import java.util.Date;
 public class TokenProvider {
 
     private final AuthDetailsService authDetailsService;
+    private final JwtProperties jwtProperties;
     private final long ACCESS_TOKEN_EXPIRE_TIME = 3000;
     private final long REFRESH_TOKEN_EXPIRE_TIME = ACCESS_TOKEN_EXPIRE_TIME * 24 * 30 * 6;
-    @Value("{spring.jwt.secret}")
-    private String SECRET_KEY;
 
     @AllArgsConstructor
     private enum TokenType {
@@ -75,7 +74,7 @@ public class TokenProvider {
     }
 
     // Token 생성
-    private String generateToken(String userEmail, TokenType tokenType, long expireTime) {
+    private String generateToken(String userEmail, TokenType tokenType, String secret, long expireTime) {
         final Claims claims = Jwts.claims();
         claims.put(TokenClaimName.USER_EMAIL.value, userEmail);
         claims.put(TokenClaimName.TOKEN_TYPE.value, tokenType);
@@ -83,19 +82,19 @@ public class TokenProvider {
                 .setClaims(claims)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expireTime))
-                .signWith(getSignInKey(SECRET_KEY), SignatureAlgorithm.HS256)
+                .signWith(getSignInKey(secret), SignatureAlgorithm.HS256)
                 .compact();
     }
 
     // AccessToken 토큰 생성
 
     public String generatedAccessToken(String email) {
-        return generateToken(email, TokenType.ACCESS_TOKEN, ACCESS_TOKEN_EXPIRE_TIME);
+        return generateToken(email, TokenType.ACCESS_TOKEN, jwtProperties.getAccessSecret(), ACCESS_TOKEN_EXPIRE_TIME);
     }
 
     // RefreshToken 토큰 생성
     public String generatedRefreshToken(String email) {
-        return generateToken(email, TokenType.REFRESH_TOKEN, REFRESH_TOKEN_EXPIRE_TIME);
+        return generateToken(email, TokenType.REFRESH_TOKEN, jwtProperties.getRefreshSecret(), REFRESH_TOKEN_EXPIRE_TIME);
     }
 
     public UsernamePasswordAuthenticationToken authentication(String userEmail) {
