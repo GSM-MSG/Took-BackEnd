@@ -40,10 +40,4 @@ public class BusinessCard extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "businessCard")
     private List<CardExchange> cardExchanges = new ArrayList<>();
-
-    public BusinessCard(CreateBusinessCardRequest createBusinessCardRequest,User userInfo) {
-       this.frontUrl = createBusinessCardRequest.getFrontUrl();
-       this.backUrl = createBusinessCardRequest.getBackUrl();
-       this.user = userInfo;
-    }
 }
