@@ -10,8 +10,8 @@ public class TokenNotVaildException extends RuntimeException {
 
     private final ErrorCode errorCode;
 
-    public TokenNotVaildException(String message, ErrorCode errorCode) {
+    public TokenNotVaildException(String message) {
         super(message);
-        this.errorCode = errorCode;
+        this.errorCode = ErrorCode.TOKEN_NOT_VALID;
     }
 }

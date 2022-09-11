@@ -9,8 +9,8 @@ import lombok.RequiredArgsConstructor;
 public class UserNotFoundException extends RuntimeException{
     private final ErrorCode errorCode;
 
-    public UserNotFoundException(String message , ErrorCode errorCode){
+    public UserNotFoundException(String message){
         super(message);
-        this.errorCode = errorCode;
+        this.errorCode = ErrorCode.USER_NOT_FOUND;
     }
 }
