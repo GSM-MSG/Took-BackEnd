@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(AuthCodeExpiredException.class)
-    public ResponseEntity<ErrorResponse> DuplicateMemberExceptionHandler(HttpServletRequest request, AuthCodeExpiredException ex){
+    public ResponseEntity<ErrorResponse> DuplicateMemberExceptionHandler(HttpServletRequest request, AuthCodeExpiredException ex) {
         printError(request, ex, ex.getErrorCode().getMessage());
         ErrorResponse errorResponse = new ErrorResponse(ex.getErrorCode().getMessage(), ex.getErrorCode().getStatus());
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(ex.getErrorCode().getStatus()));
@@ -58,21 +58,22 @@ public class GlobalExceptionHandler {
         printError(request, ex, ex.getErrorCode().getMessage());
         ErrorResponse errorResponse = new ErrorResponse(ex.getErrorCode().getMessage(), ex.getErrorCode().getStatus());
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(ex.getErrorCode().getStatus()));
+    }
     @ExceptionHandler(ManyRequestEmailAuthException.class)
-    public ResponseEntity<ErrorResponse> ManyRequestEmailAuthException(ManyRequestEmailAuthException exception){
-        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(),exception.getErrorCode().getStatus());
+    public ResponseEntity<ErrorResponse> ManyRequestEmailAuthException (ManyRequestEmailAuthException exception){
+        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
     }
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ErrorResponse> UserNotFoundException(UserNotFoundException exception){
-        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(),exception.getErrorCode().getStatus());
+    public ResponseEntity<ErrorResponse> UserNotFoundException (UserNotFoundException exception){
+        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
     }
     @ExceptionHandler(AuthCodeMismatchException.class)
-    public ResponseEntity<ErrorResponse> AuthCodeMisMatch(AuthCodeMismatchException exception){
-        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(),exception.getErrorCode().getStatus());
-        return new ResponseEntity<>(errorResponse,HttpStatus.valueOf(exception.getErrorCode().getStatus()));
+    public ResponseEntity<ErrorResponse> AuthCodeMisMatch (AuthCodeMismatchException exception){
+        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
     }
 
     private void printError(HttpServletRequest request, RuntimeException ex, String message) {
