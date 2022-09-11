@@ -5,6 +5,7 @@ import com.example.took_backend.global.exception.exceptionCollection.TokenNotVai
 import com.example.took_backend.global.security.auth.AuthDetailsService;
 import com.example.took_backend.global.security.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -38,8 +39,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     }
 
     private void registerSecurityContext(HttpServletRequest request, String email) {
-        UserDetails userDetails = userDetailService.loadUserByUsername(email);
+        UsernamePasswordAuthenticationToken authenticationToken = tokenProvider.authentication(email);
         // SecurityContextHolder는 보안 주체 세부 정보 응용프로그램의 현재 보안 컨텍스트 에 대한 정보가 저장됨
-        SecurityContextHolder.getContext().getAuthentication().getName();
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
     }
 }

@@ -2,13 +2,17 @@ package com.example.took_backend.global.security.jwt;
 
 import com.example.took_backend.global.exception.ErrorCode;
 import com.example.took_backend.global.exception.exceptionCollection.TokenExpirationException;
+import com.example.took_backend.global.security.auth.AuthDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
@@ -16,7 +20,10 @@ import java.security.Key;
 import java.util.Date;
 
 @Component
+@RequiredArgsConstructor
 public class TokenProvider {
+
+    private final AuthDetailsService authDetailsService;
     private final long ACCESS_TOKEN_EXPIRE_TIME = 3000;
     private final long REFRESH_TOKEN_EXPIRE_TIME = ACCESS_TOKEN_EXPIRE_TIME * 24 * 30 * 6;
     @Value("{spring.jwt.secret}")
@@ -89,5 +96,10 @@ public class TokenProvider {
     // RefreshToken 토큰 생성
     public String generatedRefreshToken(String email) {
         return generateToken(email, TokenType.REFRESH_TOKEN, REFRESH_TOKEN_EXPIRE_TIME);
+    }
+
+    public UsernamePasswordAuthenticationToken authentication(String userEmail) {
+        UserDetails userDetails = authDetailsService.loadUserByUsername(userEmail);
+        return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
 }
