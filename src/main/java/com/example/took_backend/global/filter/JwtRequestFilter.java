@@ -4,6 +4,7 @@ import com.example.took_backend.global.exception.ErrorCode;
 import com.example.took_backend.global.exception.exceptionCollection.TokenNotVaildException;
 import com.example.took_backend.global.security.auth.AuthDetailsService;
 import com.example.took_backend.global.security.jwt.TokenProvider;
+import com.example.took_backend.global.security.jwt.properties.JwtProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,16 +23,17 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         private final TokenProvider tokenProvider;
         private final AuthDetailsService userDetailService;
+        private final JwtProperties jwtProperties;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
             String accessToken = request.getHeader("Authorization");
             if(accessToken != null) {
-                tokenProvider.extractAllClaims(accessToken);
-                if (tokenProvider.getTokenType(accessToken).equals("accessToken")) {
-                    throw new TokenNotVaildException("Token is not valid", ErrorCode.TOKEN_NOT_VALID);
+                tokenProvider.extractAllClaims(accessToken, jwtProperties.getAccessSecret());
+                if (!tokenProvider.getTokenType(accessToken, jwtProperties.getAccessSecret()).equals("accessToken")) {
+                    throw new TokenNotVaildException("Token is not valid");
                 }
-                String email = tokenProvider.getUserEmail(accessToken);
+                String email = tokenProvider.getUserEmail(accessToken, jwtProperties.getAccessSecret());
                 registerSecurityContext(request, email);
             }
             filterChain.doFilter(request, response);

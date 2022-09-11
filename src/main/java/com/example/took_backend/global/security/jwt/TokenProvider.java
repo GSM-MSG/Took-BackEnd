@@ -49,11 +49,11 @@ public class TokenProvider {
     }
 
     // 모든 Claims 추출 ( Payload에 들어가는 값은 Claims 이라고 부른다 )
-    public Claims extractAllClaims(String token) {
+    public Claims extractAllClaims(String token, String secret) {
         token = token.replace("Bearer ", "");
         try {
             return Jwts.parserBuilder()
-                    .setSigningKey(getSignInKey(SECRET_KEY))
+                    .setSigningKey(getSignInKey(secret))
                     .build()
                     .parseClaimsJws(token)
                     .getBody();
@@ -64,13 +64,13 @@ public class TokenProvider {
     }
 
     // 토큰 값으로 유저 이메일 조회
-    public String getUserEmail(String token) {
-        return extractAllClaims(token).get(TokenClaimName.USER_EMAIL.value, String.class);
+    public String getUserEmail(String token, String secret) {
+        return extractAllClaims(token, secret).get(TokenClaimName.USER_EMAIL.value, String.class);
     }
 
     // 토큰 타입 확인
-    public String getTokenType(String token) {
-        return extractAllClaims(token).get(TokenClaimName.TOKEN_TYPE.value, String.class);
+    public String getTokenType(String token, String secret) {
+        return extractAllClaims(token, secret).get(TokenClaimName.TOKEN_TYPE.value, String.class);
     }
 
     // Token 생성
