@@ -77,7 +77,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
     }
 
-    @ExceptionHandler(AuthCodeMismatchException.class)
+    @ExceptionHandler(CardNotFoundException.class)
     public ResponseEntity<ErrorResponse> CardNotFoundException (CardNotFoundException exception){
         ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
