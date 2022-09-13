@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,9 +31,13 @@ public class ExchangeCardListService {
     }
 
     private List<ExchangeCardListResponse> getBusinessCardInfoList(List<BusinessCard> businessCardList) {
-        List<ExchangeCardListResponse> list = businessCardList.stream().map(cardInfo->
-                new ExchangeCardListResponse(cardInfo.getUuid(),cardInfo.getFrontUrl(),cardInfo.getBackUrl(),cardInfo.getCreatedAt(),cardInfo.getUpdatedAt()))
-                .collect(Collectors.toList());
+        List<ExchangeCardListResponse> list = businessCardList.stream().map(cardInfo-> ExchangeCardListResponse.builder()
+                .uuid(cardInfo.getUuid())
+                .frontUrl(cardInfo.getFrontUrl())
+                .backUrl(cardInfo.getBackUrl())
+                .createdAt(cardInfo.getCreatedAt())
+                .updatedAt(cardInfo.getUpdatedAt())
+                .build()).collect(Collectors.toList());
         return list;
     }
 
