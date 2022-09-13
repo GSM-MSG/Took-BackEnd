@@ -1,7 +1,7 @@
-package com.example.took_backend.domain.businesscard.controller;
+package com.example.took_backend.domain.business_card.controller;
 
-import com.example.took_backend.domain.businesscard.data.request.CreateBusinessCardRequest;
-import com.example.took_backend.domain.businesscard.service.CreateBusinessCardService;
+import com.example.took_backend.domain.business_card.data.request.CreateBusinessCardRequest;
+import com.example.took_backend.domain.business_card.service.CreateBusinessCardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
