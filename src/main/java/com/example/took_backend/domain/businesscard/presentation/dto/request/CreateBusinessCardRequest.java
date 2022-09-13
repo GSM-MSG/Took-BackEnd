@@ -1,4 +1,4 @@
-package com.example.took_backend.domain.businesscard.data.request;
+package com.example.took_backend.domain.businesscard.presentation.dto.request;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

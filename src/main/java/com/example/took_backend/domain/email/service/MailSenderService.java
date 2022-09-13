@@ -1,10 +1,10 @@
 package com.example.took_backend.domain.email.service;
 
-import com.example.took_backend.domain.email.EmailAuthEntity;
 import com.example.took_backend.domain.email.exception.AuthCodeExpiredException;
+import com.example.took_backend.domain.email.repository.EmailAuthRepository;
+import com.example.took_backend.domain.email.EmailAuthEntity;
 import com.example.took_backend.domain.email.exception.ManyRequestEmailAuthException;
 import com.example.took_backend.domain.email.presentation.dto.request.EmailSentDto;
-import com.example.took_backend.domain.email.repository.EmailAuthRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;

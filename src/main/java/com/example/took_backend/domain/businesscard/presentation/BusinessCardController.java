@@ -1,9 +1,7 @@
-package com.example.took_backend.domain.businesscard.controller;
+package com.example.took_backend.domain.businesscard.presentation;
 
-import com.example.took_backend.domain.businesscard.utils.ExchangeCardConverter;
-import com.example.took_backend.domain.businesscard.data.dto.ExchangeCardListDto;
-import com.example.took_backend.domain.businesscard.data.request.CreateBusinessCardRequest;
-import com.example.took_backend.domain.businesscard.data.response.ExchangeCardListResponse;
+import com.example.took_backend.domain.businesscard.presentation.dto.request.CreateBusinessCardRequest;
+import com.example.took_backend.domain.businesscard.presentation.dto.response.ExchangeCardListResponse;
 import com.example.took_backend.domain.businesscard.service.CreateBusinessCardService;
 import com.example.took_backend.domain.businesscard.service.ExchangeCardListService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +18,6 @@ import java.util.List;
 public class BusinessCardController {
     private final CreateBusinessCardService createBusinessCardService;
     private final ExchangeCardListService exchangeCardListService;
-    private final ExchangeCardConverter exchangeCardConverter;
 
     @PostMapping
     public ResponseEntity<Void> createBusinessCard(@Valid @RequestBody CreateBusinessCardRequest createBusinessCardRequest){
@@ -29,8 +26,7 @@ public class BusinessCardController {
     }
     @GetMapping
     public ResponseEntity<List<ExchangeCardListResponse>> getExchangedBusinessCard(){
-        ExchangeCardListDto exchangeCardListDto = exchangeCardListService.execute();
-        List<ExchangeCardListResponse> exchangeCardListResponse = exchangeCardConverter.toResponse(exchangeCardListDto);
+        List<ExchangeCardListResponse> exchangeCardListResponse = exchangeCardListService.execute();
         return new ResponseEntity<>(exchangeCardListResponse,HttpStatus.OK);
     }
 }

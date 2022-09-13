@@ -1,6 +1,5 @@
-package com.example.took_backend.domain.cardexhange;
+package com.example.took_backend.domain.businesscard.entity;
 
-import com.example.took_backend.domain.businesscard.BusinessCard;
 import com.example.took_backend.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

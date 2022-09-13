@@ -1,7 +1,7 @@
 package com.example.took_backend.domain.businesscard.service;
 
-import com.example.took_backend.domain.businesscard.BusinessCard;
-import com.example.took_backend.domain.businesscard.data.request.CreateBusinessCardRequest;
+import com.example.took_backend.domain.businesscard.entity.BusinessCard;
+import com.example.took_backend.domain.businesscard.presentation.dto.request.CreateBusinessCardRequest;
 import com.example.took_backend.domain.businesscard.repository.BusinessCardRepository;
 import com.example.took_backend.domain.user.User;
 import com.example.took_backend.domain.user.repository.UserRepository;

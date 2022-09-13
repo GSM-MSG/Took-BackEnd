@@ -1,16 +1,14 @@
-package com.example.took_backend.domain.email.controller;
+package com.example.took_backend.domain.email.presentation;
 
 import com.example.took_backend.domain.email.presentation.dto.request.EmailSentDto;
 import com.example.took_backend.domain.email.service.MailCheckerService;
 import com.example.took_backend.domain.email.service.MailSenderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 
 @RestController
 @RequiredArgsConstructor

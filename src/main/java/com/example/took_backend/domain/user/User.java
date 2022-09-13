@@ -1,17 +1,15 @@
 package com.example.took_backend.domain.user;
 
-import com.example.took_backend.domain.businesscard.BusinessCard;
-import com.example.took_backend.domain.cardexhange.CardExchange;
+import com.example.took_backend.domain.businesscard.entity.BusinessCard;
+import com.example.took_backend.domain.businesscard.entity.CardExchange;
 import com.example.took_backend.global.entity.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
