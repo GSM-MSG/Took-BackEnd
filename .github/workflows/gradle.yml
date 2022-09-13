@@ -29,18 +29,6 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
 
-    - name: Start Redis
-      uses: supercharge/redis-github-action@1.4.0
-      with:
-        redis-version: ${{ matrix.redis-version }}
-        redis-port: 6379
-
-    - name: Create application.yml
-      run: |
-        touch ./src/main/resources/application.yml
-        echo "${{ secrets.APPLICATION_YML }}" >> ./src/main/resources/application.yml
-      shell: bash
-
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
