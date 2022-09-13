@@ -1,5 +1,7 @@
 package com.example.took_backend.global.exception.handler;
 
+import com.example.took_backend.domain.auth.exception.EmailAlreadyExistException;
+import com.example.took_backend.domain.auth.exception.NotVerifyEmailException;
 import com.example.took_backend.domain.email.exception.AuthCodeExpiredException;
 import com.example.took_backend.domain.email.exception.AuthCodeMismatchException;
 import com.example.took_backend.domain.email.exception.ManyRequestEmailAuthException;
@@ -72,6 +74,12 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler(AuthCodeMismatchException.class)
     public ResponseEntity<ErrorResponse> AuthCodeMisMatch (AuthCodeMismatchException exception){
+        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
+    }
+
+    @ExceptionHandler(EmailAlreadyExistException.class)
+    public ResponseEntity<ErrorResponse> EmailAlreadyExist(EmailAlreadyExistException exception) {
         ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
     }
