@@ -84,6 +84,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
     }
 
+    @ExceptionHandler(NotVerifyEmailException.class)
+    public ResponseEntity<ErrorResponse> NotVerifyEmail(NotVerifyEmailException exception) {
+        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
+    }
+
     private void printError(HttpServletRequest request, RuntimeException ex, String message) {
         log.error(request.getRequestURI());
         log.error(message);
