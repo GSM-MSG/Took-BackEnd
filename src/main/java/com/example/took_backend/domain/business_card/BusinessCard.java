@@ -1,7 +1,6 @@
-package com.example.took_backend.domain.businesscard;
+package com.example.took_backend.domain.business_card;
 
-import com.example.took_backend.domain.businesscard.data.request.CreateBusinessCardRequest;
-import com.example.took_backend.domain.cardexhange.CardExchange;
+import com.example.took_backend.domain.card_exchange.CardExchange;
 import com.example.took_backend.domain.user.User;
 import com.example.took_backend.global.entity.BaseTimeEntity;
 import lombok.AllArgsConstructor;
@@ -24,7 +23,6 @@ public class BusinessCard extends BaseTimeEntity {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(columnDefinition = "VARBINARY(36)")
     @Builder.Default
     private String uuid = UUID.randomUUID().toString();
 
