@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 @Getter @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class MyCardInfoDto {
+public class MyCardInfoResponse {
     private String uuid;
     private String frontUrl;
     private String backUrl;
