@@ -1,8 +1,7 @@
 package com.example.took_backend.domain.auth.controller;
 
 import com.example.took_backend.domain.auth.dto.request.UserSignUpRequest;
-import com.example.took_backend.domain.auth.service.AuthService;
-import com.example.took_backend.domain.user.repository.UserRepository;
+import com.example.took_backend.domain.auth.service.SignupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,9 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final AuthService authService;
+    private final SignupService signupService;
 
     @PostMapping("/signup")
     public ResponseEntity<Void> signUp(@RequestBody UserSignUpRequest userReq) {
+        signupService.execute(userReq);
+        return ResponseEntity.ok().build();
     }
 }
