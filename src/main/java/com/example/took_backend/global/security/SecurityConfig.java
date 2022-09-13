@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpRequest;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -42,8 +43,10 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST,
                         "/auth/register",
                         "/auth/login",
+                        "/business-cards",
                         "/user"
                 ).permitAll()
+                .antMatchers(HttpMethod.GET,"/business-cards").permitAll()
                 .anyRequest().authenticated();
         http
                 .sessionManagement()
@@ -55,6 +58,5 @@ public class SecurityConfig {
         http
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
-
     }
 }
