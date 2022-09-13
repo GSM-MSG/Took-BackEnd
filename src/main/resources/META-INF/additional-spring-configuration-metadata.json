@@ -4,5 +4,10 @@
       "name": "spring.h2.console.web-allow-others",
       "type": "java.lang.String",
       "description": "Description for spring.h2.console.web-allow-others."
-  }
-] }
+    },
+    {
+      "name": "spring.jpa.jwt.accessSecret",
+      "type": "java.lang.String",
+      "description": "Description for spring.jpa.jwt.accessSecret."
+    }
+  ] }
