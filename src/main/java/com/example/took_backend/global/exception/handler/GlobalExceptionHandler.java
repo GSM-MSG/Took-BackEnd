@@ -2,6 +2,7 @@ package com.example.took_backend.global.exception.handler;
 
 import com.example.took_backend.domain.auth.exception.EmailAlreadyExistException;
 import com.example.took_backend.domain.auth.exception.NotVerifyEmailException;
+import com.example.took_backend.domain.auth.exception.PasswordWrongExceptin;
 import com.example.took_backend.domain.email.exception.AuthCodeExpiredException;
 import com.example.took_backend.domain.email.exception.AuthCodeMismatchException;
 import com.example.took_backend.domain.email.exception.ManyRequestEmailAuthException;
@@ -88,6 +89,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> NotVerifyEmail(NotVerifyEmailException exception) {
         ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
+    }
+
+    @ExceptionHandler(PasswordWrongExceptin.class)
+    public ResponseEntity<ErrorResponse> PasswordWrong(PasswordWrongExceptin exceptin) {
+        ErrorResponse errorResponse = new ErrorResponse(exceptin.getErrorCode().getMessage(), exceptin.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exceptin.getErrorCode().getStatus()));
     }
     private void printError(HttpServletRequest request, RuntimeException ex, String message) {
         log.error(request.getRequestURI());
