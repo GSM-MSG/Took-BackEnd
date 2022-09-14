@@ -1,4 +1,4 @@
-package com.example.took_backend.global.exception.exceptionCollection;
+package com.example.took_backend.domain.user.exception;
 
 import com.example.took_backend.global.exception.ErrorCode;
 import lombok.Getter;

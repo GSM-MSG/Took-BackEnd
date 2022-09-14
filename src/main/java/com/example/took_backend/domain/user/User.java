@@ -1,17 +1,15 @@
 package com.example.took_backend.domain.user;
 
-import com.example.took_backend.domain.businesscard.BusinessCard;
-import com.example.took_backend.domain.cardexhange.CardExchange;
+import com.example.took_backend.domain.business_card.BusinessCard;
+import com.example.took_backend.domain.card_exchange.CardExchange;
 import com.example.took_backend.global.entity.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -25,7 +23,6 @@ public class User extends BaseTimeEntity {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(columnDefinition = "VARBINARY(36)")
     @Builder.Default
     private String uuid = UUID.randomUUID().toString();
 
