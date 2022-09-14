@@ -22,7 +22,6 @@ public class BusinessCard extends BaseTimeEntity {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(columnDefinition = "VARBINARY(36)")
     @Builder.Default
     private String uuid = UUID.randomUUID().toString();
 
