@@ -3,7 +3,7 @@ package com.example.took_backend.domain.email.service;
 import com.example.took_backend.domain.email.repository.EmailAuthRepository;
 import com.example.took_backend.domain.email.EmailAuthEntity;
 import com.example.took_backend.domain.email.exception.AuthCodeMismatchException;
-import com.example.took_backend.global.exception.exceptionCollection.UserNotFoundException;
+import com.example.took_backend.domain.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

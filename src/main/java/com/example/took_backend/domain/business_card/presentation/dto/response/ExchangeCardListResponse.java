@@ -1,4 +1,4 @@
-package com.example.took_backend.domain.businesscard.presentation.dto.response;
+package com.example.took_backend.domain.business_card.presentation.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;

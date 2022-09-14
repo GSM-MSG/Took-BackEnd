@@ -1,7 +1,5 @@
-package com.example.took_backend.domain.businesscard.entity;
+package com.example.took_backend.domain.business_card.entity;
 
-import com.example.took_backend.domain.businesscard.entity.BusinessCard;
-import com.example.took_backend.domain.businesscard.entity.CardExchangeId;
 import com.example.took_backend.domain.user.User;
 import com.example.took_backend.global.entity.BaseTimeEntity;
 import lombok.AllArgsConstructor;

@@ -3,10 +3,11 @@ package com.example.took_backend.global.exception.handler;
 import com.example.took_backend.domain.email.exception.AuthCodeExpiredException;
 import com.example.took_backend.domain.email.exception.AuthCodeMismatchException;
 import com.example.took_backend.domain.email.exception.ManyRequestEmailAuthException;
+import com.example.took_backend.domain.user.exception.CardNotFoundException;
 import com.example.took_backend.global.exception.ErrorResponse;
 import com.example.took_backend.global.exception.exceptionCollection.TokenExpirationException;
 import com.example.took_backend.global.exception.exceptionCollection.TokenNotVaildException;
-import com.example.took_backend.global.exception.exceptionCollection.UserNotFoundException;
+import com.example.took_backend.domain.user.exception.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -73,6 +74,12 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler(AuthCodeMismatchException.class)
     public ResponseEntity<ErrorResponse> AuthCodeMisMatchException (AuthCodeMismatchException exception){
+        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
+    }
+
+    @ExceptionHandler(CardNotFoundException.class)
+    public ResponseEntity<ErrorResponse> CardNotFoundException (CardNotFoundException exception){
         ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
     }

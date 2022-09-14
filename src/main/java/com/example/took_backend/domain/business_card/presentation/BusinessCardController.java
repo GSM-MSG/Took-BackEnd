@@ -1,9 +1,9 @@
-package com.example.took_backend.domain.businesscard.presentation;
+package com.example.took_backend.domain.business_card.presentation;
 
-import com.example.took_backend.domain.businesscard.presentation.dto.request.CreateBusinessCardRequest;
-import com.example.took_backend.domain.businesscard.presentation.dto.response.ExchangeCardListResponse;
-import com.example.took_backend.domain.businesscard.service.CreateBusinessCardService;
-import com.example.took_backend.domain.businesscard.service.ExchangeCardListService;
+import com.example.took_backend.domain.business_card.presentation.dto.request.CreateBusinessCardRequest;
+import com.example.took_backend.domain.business_card.presentation.dto.response.ExchangeCardListResponse;
+import com.example.took_backend.domain.business_card.service.CreateBusinessCardService;
+import com.example.took_backend.domain.business_card.service.ExchangeCardListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
