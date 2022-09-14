@@ -1,4 +1,4 @@
-package com.example.took_backend.domain.user;
+package com.example.took_backend.domain.user.entity;
 
 
 import com.example.took_backend.domain.business_card.entity.BusinessCard;

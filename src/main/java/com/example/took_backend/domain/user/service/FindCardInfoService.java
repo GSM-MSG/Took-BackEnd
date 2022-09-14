@@ -2,7 +2,7 @@ package com.example.took_backend.domain.user.service;
 
 import com.example.took_backend.domain.business_card.entity.BusinessCard;
 import com.example.took_backend.domain.business_card.repository.BusinessCardRepository;
-import com.example.took_backend.domain.user.User;
+import com.example.took_backend.domain.user.entity.User;
 import com.example.took_backend.domain.user.exception.CardNotFoundException;
 import com.example.took_backend.domain.user.presentation.dto.response.MyCardInfoResponse;
 import com.example.took_backend.domain.user.repository.UserRepository;

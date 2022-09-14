@@ -4,7 +4,7 @@ import com.example.took_backend.domain.business_card.entity.BusinessCard;
 import com.example.took_backend.domain.business_card.entity.CardExchange;
 import com.example.took_backend.domain.business_card.repository.CardExchangeRepository;
 import com.example.took_backend.domain.business_card.presentation.dto.response.ExchangeCardListResponse;
-import com.example.took_backend.domain.user.User;
+import com.example.took_backend.domain.user.entity.User;
 import com.example.took_backend.domain.user.exception.UserNotFoundException;
 import com.example.took_backend.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

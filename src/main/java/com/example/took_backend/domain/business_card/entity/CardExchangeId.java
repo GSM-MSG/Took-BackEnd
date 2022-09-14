@@ -1,6 +1,6 @@
 package com.example.took_backend.domain.business_card.entity;
 
-import com.example.took_backend.domain.user.User;
+import com.example.took_backend.domain.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
