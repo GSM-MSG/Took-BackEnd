@@ -8,6 +8,8 @@ import com.example.took_backend.domain.email.repository.EmailAuthRepository;
 import com.example.took_backend.domain.user.User;
 import com.example.took_backend.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 public class SignupService {
     private final UserRepository userRepository;
     private final EmailAuthRepository emailAuthRepository;
+    private final PasswordEncoder passwordEncoder;
     public void execute(UserSignUpRequest request) {
         if(userRepository.existsByEmail(request.getEmail())) {
             throw new EmailAlreadyExistException("이메일이 이미 DB에 존재 합니다.");
@@ -26,7 +29,7 @@ public class SignupService {
         }
         User user = User.builder()
                 .email(request.getEmail())
-                .password(request.getPassword())
+                .password(passwordEncoder.encode(request.getPassword()))
                 .build();
         userRepository.save(user);
     }
