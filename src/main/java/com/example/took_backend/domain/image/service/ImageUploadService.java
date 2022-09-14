@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -28,7 +27,7 @@ public class ImageUploadService {
 
     private final AmazonS3 amazonS3;
 
-    public Optional<List<String>> upload(List<MultipartFile> multipartFile) {
+    public List<String> upload(List<MultipartFile> multipartFile) {
         List<String> fileNameList = new ArrayList<>();
 
         multipartFile.forEach(file -> {
@@ -45,7 +44,7 @@ public class ImageUploadService {
             }
             fileNameList.add(url + fileName);
         });
-        return Optional.of(fileNameList);
+        return fileNameList;
     }
     private String createFileName(String fileName) {
         return UUID.randomUUID().toString();
