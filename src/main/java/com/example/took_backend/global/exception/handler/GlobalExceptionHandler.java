@@ -3,6 +3,7 @@ package com.example.took_backend.global.exception.handler;
 import com.example.took_backend.domain.email.exception.AuthCodeExpiredException;
 import com.example.took_backend.domain.email.exception.AuthCodeMismatchException;
 import com.example.took_backend.domain.email.exception.ManyRequestEmailAuthException;
+import com.example.took_backend.domain.image.exception.FailedToUploadException;
 import com.example.took_backend.domain.user.exception.CardNotFoundException;
 import com.example.took_backend.global.exception.ErrorResponse;
 import com.example.took_backend.global.exception.exceptionCollection.TokenExpirationException;
@@ -80,6 +81,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(CardNotFoundException.class)
     public ResponseEntity<ErrorResponse> CardNotFoundException (CardNotFoundException exception){
+        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
+    }
+
+    @ExceptionHandler(FailedToUploadException.class)
+    public ResponseEntity<ErrorResponse> FailedToUploadException (FailedToUploadException exception){
         ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
     }
