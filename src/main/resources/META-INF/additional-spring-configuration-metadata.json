@@ -9,5 +9,25 @@
       "name": "spring.jpa.jwt.accessSecret",
       "type": "java.lang.String",
       "description": "Description for spring.jpa.jwt.accessSecret."
+    },
+    {
+      "name": "cloud.aws.credentials.accessKey",
+      "type": "java.lang.String",
+      "description": "Description for cloud.aws.credentials.accessKey."
+    },
+    {
+      "name": "cloud.aws.stack.auto",
+      "type": "java.lang.String",
+      "description": "Description for cloud.aws.stack.auto."
+    },
+    {
+      "name": "cloud.aws.credentials.secret-Key",
+      "type": "java.lang.String",
+      "description": "Description for cloud.aws.credentials.secret-Key."
+    },
+    {
+      "name": "cloud.aws.credentials.access-Key",
+      "type": "java.lang.String",
+      "description": "Description for cloud.aws.credentials.access-Key."
     }
   ] }
