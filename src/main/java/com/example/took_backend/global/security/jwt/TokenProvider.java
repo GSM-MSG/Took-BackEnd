@@ -62,6 +62,10 @@ public class TokenProvider {
 
     }
 
+    public Date getExpiredAtAccessToken(String token, String secret) {
+        return extractAllClaims(token, secret).getExpiration();
+    }
+
     // 토큰 값으로 유저 이메일 조회
     public String getUserEmail(String token, String secret) {
         return extractAllClaims(token, secret).get(TokenClaimName.USER_EMAIL.value, String.class);
