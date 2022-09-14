@@ -1,10 +1,10 @@
 package com.example.took_backend.domain.email.service;
 
-import com.example.took_backend.domain.email.EmailAuthEntity;
 import com.example.took_backend.domain.email.exception.AuthCodeExpiredException;
+import com.example.took_backend.domain.email.repository.EmailAuthRepository;
+import com.example.took_backend.domain.email.entity.EmailAuth;
 import com.example.took_backend.domain.email.exception.ManyRequestEmailAuthException;
 import com.example.took_backend.domain.email.presentation.dto.request.EmailSentDto;
-import com.example.took_backend.domain.email.repository.EmailAuthRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -38,8 +38,8 @@ public class MailSenderService {
     private void sendAuthEmail(String email, String authKey) {
         String subject = "TOOK 인증번호";
         String text = "회원 가입을 위한 인증번호는 " + authKey + "입니다. <br />";
-        EmailAuthEntity emailAuthEntity = emailAuthRepository.findById(email)
-                .orElse(EmailAuthEntity.builder()
+        EmailAuth emailAuthEntity = emailAuthRepository.findById(email)
+                .orElse(EmailAuth.builder()
                         .authentication(false)
                         .randomValue(authKey)
                         .attemptCount(0)

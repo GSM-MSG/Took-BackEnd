@@ -1,4 +1,4 @@
-package com.example.took_backend.domain.email;
+package com.example.took_backend.domain.email.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +14,7 @@ import org.springframework.data.redis.core.RedisHash;
 @AllArgsConstructor
 @NoArgsConstructor
 @RedisHash(value = "emailAuth", timeToLive = 60 * 15)
-public class EmailAuthEntity {
+public class EmailAuth {
     @Id
     private String email;
 

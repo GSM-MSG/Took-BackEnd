@@ -1,7 +1,6 @@
-package com.example.took_backend.domain.user;
+package com.example.took_backend.domain.business_card.entity;
 
-import com.example.took_backend.domain.business_card.BusinessCard;
-import com.example.took_backend.domain.card_exchange.CardExchange;
+import com.example.took_backend.domain.user.entity.User;
 import com.example.took_backend.global.entity.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,21 +18,23 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Getter
-public class User extends BaseTimeEntity {
+public class BusinessCard extends BaseTimeEntity {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Builder.Default
     private String uuid = UUID.randomUUID().toString();
 
-    private String email;
+    @Column(name = "front_url")
+    private String frontUrl;
 
-    @Column(length = 60)
-    private String password;
+    @Column(name = "back_url")
+    private String backUrl;
 
-    @OneToMany(mappedBy = "uuid")
-    private List<BusinessCard> businessCard = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_uuid")
+    private User user;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "businessCard")
     private List<CardExchange> cardExchanges = new ArrayList<>();
 }

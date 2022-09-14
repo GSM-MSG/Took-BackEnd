@@ -1,6 +1,6 @@
 package com.example.took_backend.global.security.auth;
 
-import com.example.took_backend.domain.user.User;
+import com.example.took_backend.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

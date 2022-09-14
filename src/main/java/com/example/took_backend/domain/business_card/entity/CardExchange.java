@@ -1,12 +1,17 @@
-package com.example.took_backend.domain.card_exchange;
+package com.example.took_backend.domain.business_card.entity;
 
-import com.example.took_backend.domain.business_card.BusinessCard;
-import com.example.took_backend.domain.user.User;
+import com.example.took_backend.domain.user.entity.User;
 import com.example.took_backend.global.entity.BaseTimeEntity;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 @IdClass(CardExchangeId.class)
 public class CardExchange extends BaseTimeEntity {
     @Id
