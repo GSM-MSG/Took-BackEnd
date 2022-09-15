@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 
@@ -17,7 +19,7 @@ public class EmailController {
     private final MailSenderService mailSenderService;
     private final MailCheckerService mailCheckerService;
     @PostMapping
-    public ResponseEntity<Void> authEmail(@RequestBody @Valid EmailSentDto emailSentDto){
+    public ResponseEntity<Void> authEmail(@RequestBody @Valid EmailSentDto emailSentDto) {
         mailSenderService.execute(emailSentDto);
         return ResponseEntity.ok().build();
     }

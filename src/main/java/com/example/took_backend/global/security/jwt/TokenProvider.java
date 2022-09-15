@@ -9,6 +9,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,6 +21,7 @@ import java.util.Date;
 
 @Component
 @RequiredArgsConstructor
+@Getter
 public class TokenProvider {
 
     private final AuthDetailsService authDetailsService;
@@ -61,6 +63,12 @@ public class TokenProvider {
         }
 
     }
+
+    public Date getExpiredAtToken(String token, String secret) {
+        return extractAllClaims(token, secret).getExpiration();
+    }
+
+
 
     // 토큰 값으로 유저 이메일 조회
     public String getUserEmail(String token, String secret) {

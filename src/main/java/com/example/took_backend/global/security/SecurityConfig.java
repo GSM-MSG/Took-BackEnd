@@ -41,10 +41,13 @@ public class SecurityConfig {
         http
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST,
-                        "/auth/register",
-                        "/auth/login",
-                        "/business-cards",
-                        "/user"
+                        "/auth/signup",
+                        "/auth",
+                        "/user",
+                        "/email"
+                ).permitAll()
+                .antMatchers(HttpMethod.HEAD,
+                        "/email"
                 ).permitAll()
                 .antMatchers(HttpMethod.GET,"/business-cards").permitAll()
                 .anyRequest().authenticated();
