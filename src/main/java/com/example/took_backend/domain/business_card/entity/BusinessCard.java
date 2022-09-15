@@ -1,17 +1,14 @@
-package com.example.took_backend.domain.user;
+package com.example.took_backend.domain.business_card.entity;
 
-import com.example.took_backend.domain.businesscard.BusinessCard;
-import com.example.took_backend.domain.cardexhange.CardExchange;
+import com.example.took_backend.domain.user.entity.User;
 import com.example.took_backend.global.entity.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -21,22 +18,23 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Getter
-public class User extends BaseTimeEntity {
+public class BusinessCard extends BaseTimeEntity {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(columnDefinition = "VARBINARY(36)")
     @Builder.Default
     private String uuid = UUID.randomUUID().toString();
 
-    private String email;
+    @Column(name = "front_url")
+    private String frontUrl;
 
-    @Column(length = 60)
-    private String password;
+    @Column(name = "back_url")
+    private String backUrl;
 
-    @OneToMany(mappedBy = "uuid")
-    private List<BusinessCard> businessCard = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_uuid")
+    private User user;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "businessCard")
     private List<CardExchange> cardExchanges = new ArrayList<>();
 }

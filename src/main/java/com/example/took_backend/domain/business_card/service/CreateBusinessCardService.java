@@ -1,11 +1,11 @@
-package com.example.took_backend.domain.businesscard.service;
+package com.example.took_backend.domain.business_card.service;
 
-import com.example.took_backend.domain.businesscard.BusinessCard;
-import com.example.took_backend.domain.businesscard.data.request.CreateBusinessCardRequest;
-import com.example.took_backend.domain.businesscard.repository.BusinessCardRepository;
-import com.example.took_backend.domain.user.User;
+import com.example.took_backend.domain.business_card.repository.BusinessCardRepository;
+import com.example.took_backend.domain.business_card.entity.BusinessCard;
+import com.example.took_backend.domain.business_card.presentation.dto.request.CreateBusinessCardRequest;
+import com.example.took_backend.domain.user.entity.User;
+import com.example.took_backend.domain.user.exception.UserNotFoundException;
 import com.example.took_backend.domain.user.repository.UserRepository;
-import com.example.took_backend.global.exception.exceptionCollection.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
