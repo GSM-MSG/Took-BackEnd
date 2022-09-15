@@ -23,7 +23,7 @@ public class SignupService {
             throw new EmailAlreadyExistException("이메일이 이미 DB에 존재 합니다.");
         }
         EmailAuth emailAuth = emailAuthRepository.findById(request.getEmail())
-                .orElseThrow(() -> new NotVerifyEmailException("이메일이 확인되지 않았습니다."));
+                .orElseThrow(() -> new NotVerifyEmailException("이메일이 인증되지 않았습니다."));
         if(!emailAuth.getAuthentication()) {
             throw new NotVerifyEmailException("이메일이 인증되지 않았습니다");
         }
