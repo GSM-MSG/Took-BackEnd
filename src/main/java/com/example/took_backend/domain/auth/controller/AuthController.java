@@ -5,7 +5,6 @@ import com.example.took_backend.domain.auth.dto.request.UserSignUpRequest;
 import com.example.took_backend.domain.auth.dto.response.UserSignInResponse;
 import com.example.took_backend.domain.auth.service.SignInService;
 import com.example.took_backend.domain.auth.service.SignupService;
-import com.example.took_backend.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
