@@ -47,9 +47,7 @@ public class SecurityConfig {
                         "/email"
                 ).permitAll()
                 .antMatchers(HttpMethod.HEAD,
-                        "/email",
-                        "/business-cards",
-                        "/user"
+                        "/email"
                 ).permitAll()
                 .antMatchers(HttpMethod.GET,"/business-cards").permitAll()
                 .anyRequest().authenticated();
