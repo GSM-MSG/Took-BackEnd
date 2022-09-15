@@ -24,7 +24,7 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<Void> signUp(@RequestBody UserSignUpRequest userReq) {
         signupService.execute(userReq);
-        return ResponseEntity.ok().build();
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PostMapping
