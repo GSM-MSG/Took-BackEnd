@@ -11,6 +11,7 @@ import com.example.took_backend.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,6 +19,8 @@ public class SignupService {
     private final UserRepository userRepository;
     private final EmailAuthRepository emailAuthRepository;
     private final PasswordEncoder passwordEncoder;
+
+    @Transactional
     public void execute(UserSignUpRequest request) {
         if(userRepository.existsByEmail(request.getEmail())) {
             throw new EmailAlreadyExistException("이메일이 이미 DB에 존재 합니다.");
