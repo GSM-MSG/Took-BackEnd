@@ -1,21 +1,24 @@
 package com.example.took_backend.domain.auth.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
-
-import javax.persistence.Id;
+import org.springframework.data.redis.core.TimeToLive;
 
 @Getter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
-@RedisHash(value = "refreshToken",timeToLive = 3000* 24 * 30 * 6)
+@AllArgsConstructor
+@ToString
+@RedisHash(value = "refreshToken")
 public class RefreshToken {
     @Id
-    private String email;
-    private String refreshToken;
+    private String token;
 
-    public void deleteRefreshToken(){
-        this.refreshToken = null;
-    }
+    private String email;
+
+    @TimeToLive
+    private long expiredAt;
 }

@@ -1,20 +1,22 @@
 package com.example.took_backend.global.exception.handler;
 
+import com.example.took_backend.domain.auth.exception.EmailAlreadyExistException;
+import com.example.took_backend.domain.auth.exception.NotVerifyEmailException;
+import com.example.took_backend.domain.auth.exception.PasswordWrongExceptin;
 import com.example.took_backend.domain.email.exception.AuthCodeExpiredException;
 import com.example.took_backend.domain.email.exception.AuthCodeMismatchException;
 import com.example.took_backend.domain.email.exception.ManyRequestEmailAuthException;
 import com.example.took_backend.domain.image.exception.FailedToUploadException;
 import com.example.took_backend.domain.user.exception.CardNotFoundException;
+import com.example.took_backend.domain.user.exception.UserNotFoundException;
 import com.example.took_backend.global.exception.ErrorResponse;
 import com.example.took_backend.global.exception.exceptionCollection.TokenExpirationException;
 import com.example.took_backend.global.exception.exceptionCollection.TokenNotVaildException;
-import com.example.took_backend.domain.user.exception.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -91,6 +93,23 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
     }
 
+    @ExceptionHandler(EmailAlreadyExistException.class)
+    public ResponseEntity<ErrorResponse> EmailAlreadyExist(EmailAlreadyExistException exception) {
+        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
+    }
+
+    @ExceptionHandler(NotVerifyEmailException.class)
+    public ResponseEntity<ErrorResponse> NotVerifyEmail(NotVerifyEmailException exception) {
+        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
+    }
+
+    @ExceptionHandler(PasswordWrongExceptin.class)
+    public ResponseEntity<ErrorResponse> PasswordWrong(PasswordWrongExceptin exceptin) {
+        ErrorResponse errorResponse = new ErrorResponse(exceptin.getErrorCode().getMessage(), exceptin.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exceptin.getErrorCode().getStatus()));
+    }
     private void printError(HttpServletRequest request, RuntimeException ex, String message) {
         log.error(request.getRequestURI());
         log.error(message);
