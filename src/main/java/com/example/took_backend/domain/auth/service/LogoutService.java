@@ -1,28 +1,43 @@
 package com.example.took_backend.domain.auth.service;
 
 import com.example.took_backend.domain.auth.entity.BlackList;
+import com.example.took_backend.domain.auth.entity.RefreshToken;
+import com.example.took_backend.domain.auth.exception.RefreshTokenNotFoundException;
 import com.example.took_backend.domain.auth.repository.BlackListRepository;
 import com.example.took_backend.domain.auth.repository.RefreshTokenRepository;
-import com.example.took_backend.domain.user.exception.UserNotFoundException;
+import com.example.took_backend.global.security.jwt.TokenProvider;
+import com.example.took_backend.global.security.jwt.properties.JwtProperties;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
+
 @Service
 @RequiredArgsConstructor
 public class  LogoutService {
     private final RefreshTokenRepository refreshTokenRepository;
     private final BlackListRepository  blackListRepository;
-    public void execute(){
-        String email = "토큰에서 가져온 이메일";
-        if(refreshTokenRepository.existsByEmail(email)) throw new UserNotFoundException("유저가 존재하지 않습니다.");
-        refreshTokenRepository.deleteAllByEmail(email);
-        saveBlackList(email);
+    private final TokenProvider tokenProvider;
+    private final JwtProperties jwtProperties;
+
+    @Transactional
+    public void execute(HttpServletRequest request){
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        RefreshToken refreshToken = refreshTokenRepository.findById(email).orElseThrow(()->new RefreshTokenNotFoundException("리프레시 토큰을 찾을 수 없습니다."));
+        refreshTokenRepository.delete(refreshToken);
+        saveBlackList(email,request);
     }
-    private void saveBlackList(String email){
-        String accessToken = "엑세스 토큰";
+    private void saveBlackList(String email, HttpServletRequest request){
+        String accessToken = request.getHeader("Authorization");;
+        Date accessTokenExpire = tokenProvider.getExpiredAtToken(accessToken,jwtProperties.getAccessSecret());
         BlackList blackList = BlackList.builder()
                 .email(email)
                 .accessToken(accessToken)
-                .build(); //timeToLive 토큰기간으로 하기
+                .timeToLive(accessTokenExpire.getTime())
+                .build();
         blackListRepository.save(blackList);
 
     }

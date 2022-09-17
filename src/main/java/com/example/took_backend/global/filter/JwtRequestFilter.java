@@ -1,8 +1,6 @@
 package com.example.took_backend.global.filter;
 
-import com.example.took_backend.global.exception.ErrorCode;
 import com.example.took_backend.global.exception.exceptionCollection.TokenNotVaildException;
-import com.example.took_backend.global.security.auth.AuthDetailsService;
 import com.example.took_backend.global.security.jwt.TokenProvider;
 import com.example.took_backend.global.security.jwt.properties.JwtProperties;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +20,6 @@ import java.io.IOException;
 public class JwtRequestFilter extends OncePerRequestFilter {
 
     private final TokenProvider tokenProvider;
-    private final AuthDetailsService userDetailService;
     private final JwtProperties jwtProperties;
 
     @Override
@@ -30,9 +27,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             String accessToken = request.getHeader("Authorization");
             if(accessToken != null) {
                 tokenProvider.extractAllClaims(accessToken, jwtProperties.getAccessSecret());
-                if (!tokenProvider.getTokenType(accessToken, jwtProperties.getAccessSecret()).equals("accessToken")) {
+                /*if (!tokenProvider.getTokenType(accessToken, jwtProperties.getAccessSecret()).equals("accessToken")) {
                     throw new TokenNotVaildException("Token is not valid");
-                }
+                }*/
                 String email = tokenProvider.getUserEmail(accessToken, jwtProperties.getAccessSecret());
                 registerSecurityContext(request, email);
             }

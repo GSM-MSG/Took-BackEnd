@@ -11,6 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("auth")
@@ -31,8 +34,8 @@ public class AuthController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Void>logout(){
-        logoutService.execute();
+    public ResponseEntity<Void>logout(HttpServletRequest request){
+        logoutService.execute(request);
         return ResponseEntity.ok().build();
     }
 }
