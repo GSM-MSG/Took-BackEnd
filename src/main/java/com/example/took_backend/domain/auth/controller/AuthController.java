@@ -23,7 +23,7 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<Void> signUp(@RequestBody UserSignUpRequest userReq) {
-        signupService.execute(userReq);
+        signupService.execute(userReq); 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
