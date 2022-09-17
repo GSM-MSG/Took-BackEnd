@@ -27,9 +27,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             String accessToken = request.getHeader("Authorization");
             if(accessToken != null) {
                 tokenProvider.extractAllClaims(accessToken, jwtProperties.getAccessSecret());
-                /*if (!tokenProvider.getTokenType(accessToken, jwtProperties.getAccessSecret()).equals("accessToken")) {
+                if (!tokenProvider.getTokenType(accessToken, jwtProperties.getAccessSecret()).equals("accessToken")) {
                     throw new TokenNotVaildException("Token is not valid");
-                }*/
+                }
                 String email = tokenProvider.getUserEmail(accessToken, jwtProperties.getAccessSecret());
                 registerSecurityContext(request, email);
             }

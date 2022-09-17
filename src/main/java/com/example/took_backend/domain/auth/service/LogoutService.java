@@ -24,14 +24,13 @@ public class  LogoutService {
     private final JwtProperties jwtProperties;
 
     @Transactional
-    public void execute(HttpServletRequest request){
+    public void execute(String accessToken){
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         RefreshToken refreshToken = refreshTokenRepository.findById(email).orElseThrow(()->new RefreshTokenNotFoundException("리프레시 토큰을 찾을 수 없습니다."));
         refreshTokenRepository.delete(refreshToken);
-        saveBlackList(email,request);
+        saveBlackList(email,accessToken);
     }
-    private void saveBlackList(String email, HttpServletRequest request){
-        String accessToken = request.getHeader("Authorization");;
+    private void saveBlackList(String email, String accessToken){
         Date accessTokenExpire = tokenProvider.getExpiredAtToken(accessToken,jwtProperties.getAccessSecret());
         BlackList blackList = BlackList.builder()
                 .email(email)

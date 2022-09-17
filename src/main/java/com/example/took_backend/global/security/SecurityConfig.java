@@ -51,6 +51,7 @@ public class SecurityConfig {
                 ).permitAll()
                 .antMatchers(HttpMethod.DELETE,"/user").authenticated()
                 .antMatchers(HttpMethod.POST,"/business-cards").authenticated()
+
                 .antMatchers(HttpMethod.GET,"/business-cards").authenticated()
                 .anyRequest().authenticated();
         http
