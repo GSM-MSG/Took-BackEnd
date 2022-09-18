@@ -30,7 +30,9 @@ jobs:
         distribution: 'temurin'
 
     - name: start-mysql-redis
-      run: docker-compose start
+      run: |
+        docker-compose up
+        docker-compose start
 
     - name: Create application.yml
       run: |
