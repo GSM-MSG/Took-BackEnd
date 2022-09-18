@@ -101,7 +101,6 @@ public class TokenProvider {
     public String generatedRefreshToken(String email) {
         return generateToken(email, TokenType.REFRESH_TOKEN, jwtProperties.getRefreshSecret(), REFRESH_TOKEN_EXPIRE_TIME);
     }
-
     public UsernamePasswordAuthenticationToken authentication(String userEmail) {
         UserDetails userDetails = authDetailsService.loadUserByUsername(userEmail);
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
