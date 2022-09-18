@@ -11,7 +11,6 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @IdClass(CardExchangeId.class)
