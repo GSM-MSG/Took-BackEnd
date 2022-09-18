@@ -29,11 +29,8 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
 
-    - name: Start Redis
-      uses: supercharge/redis-github-action@1.4.0
-      with:
-        redis-version: ${{ matrix.redis-version }}
-        redis-port: 6379
+    - name: start-mysql-redis
+      run: docker-compose start
 
     - name: Create application.yml
       run: |
@@ -45,4 +42,4 @@ jobs:
       run: chmod +x gradlew
 
     - name: Build with Gradle
-      run: ./gradle --debug build
+      run: ./gradlew clean build
