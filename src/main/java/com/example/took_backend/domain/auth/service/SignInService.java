@@ -1,8 +1,8 @@
 package com.example.took_backend.domain.auth.service;
 
-import com.example.took_backend.domain.auth.RefreshTokenAuthEntity;
-import com.example.took_backend.domain.auth.dto.request.UserSignInRequest;
-import com.example.took_backend.domain.auth.dto.response.UserSignInResponse;
+import com.example.took_backend.domain.auth.entity.RefreshToken;
+import com.example.took_backend.domain.auth.presentation.dto.request.UserSignInRequest;
+import com.example.took_backend.domain.auth.presentation.dto.response.UserSignInResponse;
 import com.example.took_backend.domain.auth.exception.PasswordWrongExceptin;
 import com.example.took_backend.domain.auth.repository.RefreshTokenRepository;
 import com.example.took_backend.domain.user.entity.User;
@@ -32,7 +32,7 @@ public class SignInService {
         }
         String accessToken = tokenProvider.generatedAccessToken(request.getEmail());
         String refreshToken = tokenProvider.generatedRefreshToken(request.getEmail());
-        RefreshTokenAuthEntity entityToRedis = new RefreshTokenAuthEntity(refreshToken, request.getEmail(), tokenProvider.getREFRESH_TOKEN_EXPIRE_TIME());
+        RefreshToken entityToRedis = new RefreshToken(refreshToken, request.getEmail(), tokenProvider.getREFRESH_TOKEN_EXPIRE_TIME());
         refreshTokenRepository.save(entityToRedis);
         return UserSignInResponse.builder()
                 .accessToken(accessToken)

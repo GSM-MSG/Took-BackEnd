@@ -1,9 +1,8 @@
-package com.example.took_backend.domain.auth.dto.request;
+package com.example.took_backend.domain.auth.presentation.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 

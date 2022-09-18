@@ -1,6 +1,6 @@
 package com.example.took_backend.domain.auth.service;
 
-import com.example.took_backend.domain.auth.dto.request.UserSignUpRequest;
+import com.example.took_backend.domain.auth.presentation.dto.request.UserSignUpRequest;
 import com.example.took_backend.domain.auth.exception.EmailAlreadyExistException;
 import com.example.took_backend.domain.auth.exception.NotVerifyEmailException;
 import com.example.took_backend.domain.email.entity.EmailAuth;

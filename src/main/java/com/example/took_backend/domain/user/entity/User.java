@@ -33,8 +33,10 @@ public class User extends BaseTimeEntity {
     private String password;
 
     @OneToMany(mappedBy = "uuid")
+    @Builder.Default
     private List<BusinessCard> businessCard = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
+    @Builder.Default
     private List<CardExchange> cardExchanges = new ArrayList<>();
 }
