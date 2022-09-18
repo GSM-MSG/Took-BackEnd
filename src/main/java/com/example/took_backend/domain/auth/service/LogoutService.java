@@ -2,6 +2,7 @@ package com.example.took_backend.domain.auth.service;
 
 import com.example.took_backend.domain.auth.entity.BlackList;
 import com.example.took_backend.domain.auth.entity.RefreshToken;
+import com.example.took_backend.domain.auth.exception.BlackListAlreadyExistException;
 import com.example.took_backend.domain.auth.exception.RefreshTokenNotFoundException;
 import com.example.took_backend.domain.auth.repository.BlackListRepository;
 import com.example.took_backend.domain.auth.repository.RefreshTokenRepository;
@@ -13,7 +14,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 @Service
@@ -34,6 +34,7 @@ public class  LogoutService {
     }
     private void saveBlackList(String email, String accessToken){
         if(redisTemplate.opsForValue().get(accessToken)!=null){
+            throw new BlackListAlreadyExistException("블랙리스트에 이미 등록되어있습니다.");
         }
         Date accessTokenExpire = tokenProvider.getExpiredAtToken(accessToken,jwtProperties.getAccessSecret());
         BlackList blackList = BlackList.builder()
