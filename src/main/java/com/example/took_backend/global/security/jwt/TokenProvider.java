@@ -69,7 +69,6 @@ public class TokenProvider {
     }
 
 
-
     // 토큰 값으로 유저 이메일 조회
     public String getUserEmail(String token, String secret) {
         return extractAllClaims(token, secret).get(TokenClaimName.USER_EMAIL.value, String.class);
@@ -94,7 +93,6 @@ public class TokenProvider {
     }
 
     // AccessToken 토큰 생성
-
     public String generatedAccessToken(String email) {
         return generateToken(email, TokenType.ACCESS_TOKEN, jwtProperties.getAccessSecret(), ACCESS_TOKEN_EXPIRE_TIME);
     }
