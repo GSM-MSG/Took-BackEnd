@@ -11,6 +11,7 @@ import com.example.took_backend.domain.user.repository.UserRepository;
 import com.example.took_backend.global.security.jwt.TokenProvider;
 import com.example.took_backend.global.security.jwt.properties.JwtProperties;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.ReactiveRedisOperations;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
