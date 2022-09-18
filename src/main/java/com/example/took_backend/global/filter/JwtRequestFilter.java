@@ -4,6 +4,7 @@ import com.example.took_backend.global.exception.exceptionCollection.TokenNotVai
 import com.example.took_backend.global.security.jwt.TokenProvider;
 import com.example.took_backend.global.security.jwt.properties.JwtProperties;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -21,13 +22,14 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     private final TokenProvider tokenProvider;
     private final JwtProperties jwtProperties;
+    private final RedisTemplate redisTemplate;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
             String accessToken = request.getHeader("Authorization");
             if(accessToken != null) {
                 tokenProvider.extractAllClaims(accessToken, jwtProperties.getAccessSecret());
-                if (!tokenProvider.getTokenType(accessToken, jwtProperties.getAccessSecret()).equals("accessToken")) {
+                if (!tokenProvider.getTokenType(accessToken, jwtProperties.getAccessSecret()).equals("accessToken")||redisTemplate.opsForValue().get(accessToken)!=null){
                     throw new TokenNotVaildException("Token is not valid");
                 }
                 String email = tokenProvider.getUserEmail(accessToken, jwtProperties.getAccessSecret());
