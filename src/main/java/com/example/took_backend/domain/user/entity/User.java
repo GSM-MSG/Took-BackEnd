@@ -32,9 +32,18 @@ public class User extends BaseTimeEntity {
     @Column(length = 60)
     private String password;
 
+<<<<<<< HEAD
     @OneToMany(mappedBy = "uuid",cascade = CascadeType.REMOVE)
     private List<BusinessCard> businessCard = new ArrayList<>();
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
+=======
+    @OneToMany(mappedBy = "uuid")
+    @Builder.Default
+    private List<BusinessCard> businessCard = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    @Builder.Default
+>>>>>>> 530e025a9e5e0a697440c89e8fdb564bf534ddc5
     private List<CardExchange> cardExchanges = new ArrayList<>();
 }

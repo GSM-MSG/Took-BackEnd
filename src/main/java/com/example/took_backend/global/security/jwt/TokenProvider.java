@@ -68,7 +68,10 @@ public class TokenProvider {
         return extractAllClaims(token, secret).getExpiration();
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 530e025a9e5e0a697440c89e8fdb564bf534ddc5
     // 토큰 값으로 유저 이메일 조회
     public String getUserEmail(String token, String secret) {
         return extractAllClaims(token, secret).get(TokenClaimName.USER_EMAIL.value, String.class);
@@ -87,7 +90,7 @@ public class TokenProvider {
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + expireTime))
+                .setExpiration(new Date(System.currentTimeMillis() + expireTime * 1000))
                 .signWith(getSignInKey(secret), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -101,7 +104,6 @@ public class TokenProvider {
     public String generatedRefreshToken(String email) {
         return generateToken(email, TokenType.REFRESH_TOKEN, jwtProperties.getRefreshSecret(), REFRESH_TOKEN_EXPIRE_TIME);
     }
-
     public UsernamePasswordAuthenticationToken authentication(String userEmail) {
         UserDetails userDetails = authDetailsService.loadUserByUsername(userEmail);
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

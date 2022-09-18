@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Getter
 public class BusinessCard extends BaseTimeEntity {
     @Id
@@ -36,5 +36,6 @@ public class BusinessCard extends BaseTimeEntity {
     private User user;
 
     @OneToMany(mappedBy = "businessCard")
+    @Builder.Default
     private List<CardExchange> cardExchanges = new ArrayList<>();
 }

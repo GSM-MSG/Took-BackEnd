@@ -50,7 +50,10 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.HEAD,
                         "/email"
                 ).permitAll()
-                .antMatchers(HttpMethod.GET,"/business-cards").permitAll()
+                .antMatchers(HttpMethod.DELETE,"/user").authenticated()
+                .antMatchers(HttpMethod.POST,"/business-cards").authenticated()
+
+                .antMatchers(HttpMethod.GET,"/business-cards").authenticated()
                 .anyRequest().authenticated();
         http
                 .sessionManagement()

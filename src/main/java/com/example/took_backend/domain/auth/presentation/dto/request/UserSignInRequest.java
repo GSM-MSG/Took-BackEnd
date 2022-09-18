@@ -1,4 +1,4 @@
-package com.example.took_backend.domain.auth.dto.request;
+package com.example.took_backend.domain.auth.presentation.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

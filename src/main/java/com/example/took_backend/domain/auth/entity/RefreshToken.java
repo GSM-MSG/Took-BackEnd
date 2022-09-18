@@ -1,4 +1,4 @@
-package com.example.took_backend.domain.auth;
+package com.example.took_backend.domain.auth.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,10 +13,9 @@ import org.springframework.data.redis.core.TimeToLive;
 @AllArgsConstructor
 @ToString
 @RedisHash(value = "refreshToken")
-public class RefreshTokenAuthEntity {
+public class RefreshToken {
     @Id
     private String token;
-
     private String email;
 
     @TimeToLive
