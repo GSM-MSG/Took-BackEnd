@@ -7,7 +7,6 @@ import com.example.took_backend.domain.email.exception.ManyRequestEmailAuthExcep
 import com.example.took_backend.domain.image.exception.FailedToUploadException;
 import com.example.took_backend.domain.user.exception.CardNotFoundException;
 import com.example.took_backend.domain.user.exception.UserNotFoundException;
-import com.example.took_backend.global.exception.ErrorCode;
 import com.example.took_backend.global.exception.ErrorResponse;
 import com.example.took_backend.global.exception.exceptionCollection.TokenExpirationException;
 import com.example.took_backend.global.exception.exceptionCollection.TokenNotVaildException;
@@ -114,8 +113,8 @@ public class GlobalExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
     }
-    @ExceptionHandler(AccessTokenAlreadyExistException.class)
-    public ResponseEntity<ErrorResponse>AccessTokenAlreadyExist(AccessTokenAlreadyExistException exception){
+    @ExceptionHandler(BlackListAlreadyExistException.class)
+    public ResponseEntity<ErrorResponse>AccessTokenAlreadyExist(BlackListAlreadyExistException exception){
         ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(),exception.getErrorCode().getStatus());
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
     }
