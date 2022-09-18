@@ -9,6 +9,7 @@ import com.example.took_backend.domain.user.repository.UserRepository;
 import com.example.took_backend.domain.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,7 +20,7 @@ public class FindCardInfoService {
     private final BusinessCardRepository businessCardRepository;
 
     public MyCardInfoResponse findCardInfo(){
-        String email = "127469@naver.com"; //TODO 토큰에서 메일 가져오는 함수 만들면 변경하기 -김시훈-
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findUserByEmail(email).orElseThrow(()-> new UserNotFoundException("유저가 없습니다"));
         return toResponse(businessCardRepository.findBusinessCardByUser(user).orElseThrow(()-> new CardNotFoundException("명함이 없습니다")));
     }
