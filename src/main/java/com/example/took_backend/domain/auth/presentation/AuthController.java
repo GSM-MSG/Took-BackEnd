@@ -34,7 +34,7 @@ public class AuthController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Void>logout(@RequestHeader("Authorization")String accessToken){
+    public ResponseEntity<Void> logout(@RequestHeader("Authorization")String accessToken){
         logoutService.execute(accessToken);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

@@ -1,5 +1,6 @@
 package com.example.took_backend.global.filter;
 
+import com.example.took_backend.domain.auth.exception.AccessTokenAlreadyExistException;
 import com.example.took_backend.global.exception.exceptionCollection.TokenNotVaildException;
 import com.example.took_backend.global.security.jwt.TokenProvider;
 import com.example.took_backend.global.security.jwt.properties.JwtProperties;
@@ -28,9 +29,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
             String accessToken = request.getHeader("Authorization");
             if(accessToken != null) {
+                System.out.println(accessToken);
                 tokenProvider.extractAllClaims(accessToken, jwtProperties.getAccessSecret());
-                if (!tokenProvider.getTokenType(accessToken, jwtProperties.getAccessSecret()).equals("accessToken")||redisTemplate.opsForValue().get(accessToken)!=null){
+                if (!tokenProvider.getTokenType(accessToken, jwtProperties.getAccessSecret()).equals("accessToken")){
                     throw new TokenNotVaildException("Token is not valid");
+                }else if(redisTemplate.opsForValue().get(accessToken)!=null){
+                    throw new AccessTokenAlreadyExistException("블랙리스트에 이미 등록되어있습니다.");
                 }
                 String email = tokenProvider.getUserEmail(accessToken, jwtProperties.getAccessSecret());
                 registerSecurityContext(request, email);

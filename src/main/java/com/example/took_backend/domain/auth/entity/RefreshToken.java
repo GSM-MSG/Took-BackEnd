@@ -14,8 +14,8 @@ import org.springframework.data.redis.core.TimeToLive;
 @ToString
 @RedisHash(value = "refreshToken")
 public class RefreshToken {
-    private String token;
     @Id
+    private String token;
     private String email;
 
     @TimeToLive

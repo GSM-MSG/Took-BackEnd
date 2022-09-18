@@ -28,7 +28,7 @@ public class  LogoutService {
     @Transactional
     public void execute(String accessToken){
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        RefreshToken refreshToken = refreshTokenRepository.findById(email).orElseThrow(()->new RefreshTokenNotFoundException("리프레시 토큰을 찾을 수 없습니다."));
+        RefreshToken refreshToken = refreshTokenRepository.findRefreshTokenByEmail(email).orElseThrow(()->new RefreshTokenNotFoundException("리프레시 토큰을 찾을 수 없습니다."));
         refreshTokenRepository.delete(refreshToken);
         saveBlackList(email,accessToken);
     }
