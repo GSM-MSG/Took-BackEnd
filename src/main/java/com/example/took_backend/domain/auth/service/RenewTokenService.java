@@ -1,8 +1,8 @@
 package com.example.took_backend.domain.auth.service;
 
-import com.example.took_backend.domain.auth.RefreshTokenAuthEntity;
 import com.example.took_backend.domain.auth.dto.response.NewTokenResponse;
-import com.example.took_backend.domain.auth.exception.TokenNotFoundException;
+import com.example.took_backend.domain.auth.entity.RefreshToken;
+import com.example.took_backend.domain.auth.exception.RefreshTokenNotFoundException;
 import com.example.took_backend.domain.auth.repository.RefreshTokenRepository;
 import com.example.took_backend.global.exception.exceptionCollection.TokenNotVaildException;
 import com.example.took_backend.global.security.jwt.TokenProvider;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZonedDateTime;
-import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
@@ -24,8 +23,8 @@ public class RenewTokenService {
     @Transactional
     public NewTokenResponse tokenReissuance(String reqToken) {
         String email = tokenProvider.getUserEmail(reqToken, jwtProperties.getRefreshSecret());
-        RefreshTokenAuthEntity token = refreshTokenRepository.findById(email)
-                .orElseThrow(() -> new TokenNotFoundException("토큰이 존재하지 없습니다."));
+        RefreshToken token = refreshTokenRepository.findById(email)
+                .orElseThrow(() -> new RefreshTokenNotFoundException("리프레쉬 토큰이 존재하지 없습니다."));
         if(!token.getToken().equals(reqToken)) {
             throw new TokenNotVaildException("토큰이 유효하지 않습니다");
         }
