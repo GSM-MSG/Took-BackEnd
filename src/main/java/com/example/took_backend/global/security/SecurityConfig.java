@@ -40,16 +40,17 @@ public class SecurityConfig {
                 .csrf().disable();
         http
                 .authorizeRequests()
+                .antMatchers(HttpMethod.GET,"/business-cards").permitAll()
                 .antMatchers(HttpMethod.POST,
                         "/auth/signup",
                         "/auth",
                         "/user",
                         "/email"
                 ).permitAll()
+                .antMatchers(HttpMethod.PATCH, "/auth").permitAll()
                 .antMatchers(HttpMethod.HEAD,
                         "/email"
                 ).permitAll()
-                .antMatchers(HttpMethod.GET,"/business-cards").permitAll()
                 .anyRequest().authenticated();
         http
                 .sessionManagement()
