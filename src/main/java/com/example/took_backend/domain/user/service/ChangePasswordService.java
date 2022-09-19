@@ -7,6 +7,7 @@ import com.example.took_backend.domain.user.entity.User;
 import com.example.took_backend.domain.user.exception.UserNotFoundException;
 import com.example.took_backend.domain.user.presentation.dto.request.ChangePasswordRequest;
 import com.example.took_backend.domain.user.repository.UserRepository;
+import com.example.took_backend.global.util.UserUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,15 +17,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class ChangePasswordService {
-    private final UserRepository userRepository;
+    private final UserUtil userUtil;
     private final PasswordEncoder passwordEncoder;
     private final EmailAuthRepository emailAuthRepository;
 
     @Transactional
     public void execute(ChangePasswordRequest changePasswordRequest){
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        User userInfo = userRepository.findUserByEmail(email).orElseThrow(()->new UserNotFoundException("유저를 찾을 수 없습니다."));
-        if(validateAuthentication(email)){
+        User userInfo = userUtil.currentUser();
+        if(validateAuthentication(userInfo.getEmail())){
             userInfo.update(passwordEncoder.encode(changePasswordRequest.getPassword()));
         }
     }

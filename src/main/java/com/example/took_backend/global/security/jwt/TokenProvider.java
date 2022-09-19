@@ -92,7 +92,6 @@ public class TokenProvider {
     }
 
     // AccessToken 토큰 생성
-
     public String generatedAccessToken(String email) {
         return generateToken(email, TokenType.ACCESS_TOKEN, jwtProperties.getAccessSecret(), ACCESS_TOKEN_EXPIRE_TIME);
     }

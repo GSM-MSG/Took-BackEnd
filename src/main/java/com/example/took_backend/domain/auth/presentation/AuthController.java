@@ -21,9 +21,10 @@ public class AuthController {
     private final LogoutService logoutService;
     private final SignupService signupService;
     private final SignInService signInService;
+
     @PostMapping("/signup")
     public ResponseEntity<Void> signUp(@RequestBody UserSignUpRequest userReq) {
-        signupService.execute(userReq); 
+        signupService.execute(userReq);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
