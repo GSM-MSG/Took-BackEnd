@@ -26,7 +26,7 @@ public class TokenProvider {
 
     private final AuthDetailsService authDetailsService;
     private final JwtProperties jwtProperties;
-    private final long ACCESS_TOKEN_EXPIRE_TIME = 3000;
+    private final long ACCESS_TOKEN_EXPIRE_TIME = 60*120;
     private final long REFRESH_TOKEN_EXPIRE_TIME = ACCESS_TOKEN_EXPIRE_TIME * 24 * 30 * 6;
 
     @AllArgsConstructor

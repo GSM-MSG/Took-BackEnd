@@ -39,4 +39,8 @@ public class User extends BaseTimeEntity {
     @OneToMany(mappedBy = "user")
     @Builder.Default
     private List<CardExchange> cardExchanges = new ArrayList<>();
+
+    public void update(String password){
+        this.password = password;
+    }
 }

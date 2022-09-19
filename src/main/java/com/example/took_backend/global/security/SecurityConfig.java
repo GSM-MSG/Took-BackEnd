@@ -17,6 +17,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.sound.midi.Patch;
+
 @Configuration
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -49,10 +51,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.HEAD,
                         "/email"
                 ).permitAll()
-                .antMatchers(HttpMethod.DELETE,"/user").authenticated()
-                .antMatchers(HttpMethod.POST,"/business-cards").authenticated()
-
-                .antMatchers(HttpMethod.GET,"/business-cards").authenticated()
+                .antMatchers(HttpMethod.PATCH,"/user").authenticated()
                 .anyRequest().authenticated();
         http
                 .sessionManagement()
