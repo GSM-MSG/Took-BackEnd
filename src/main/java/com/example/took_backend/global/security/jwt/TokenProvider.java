@@ -82,8 +82,6 @@ public class TokenProvider {
         return ZonedDateTime.now().plusSeconds(ACCESS_TOKEN_EXPIRE_TIME);
     }
 
-
-
     // 토큰 값으로 유저 이메일 조회
     public String getUserEmail(String token, String secret) {
         return extractAllClaims(token, secret).get(TokenClaimName.USER_EMAIL.value, String.class);
@@ -95,7 +93,6 @@ public class TokenProvider {
     }
 
     // AccessToken 토큰 생성
-
     public String generatedAccessToken(String email) {
         return generateToken(email, TokenType.ACCESS_TOKEN, jwtProperties.getAccessSecret(), ACCESS_TOKEN_EXPIRE_TIME);
     }
@@ -104,7 +101,6 @@ public class TokenProvider {
     public String generatedRefreshToken(String email) {
         return generateToken(email, TokenType.REFRESH_TOKEN, jwtProperties.getRefreshSecret(), REFRESH_TOKEN_EXPIRE_TIME);
     }
-
     public UsernamePasswordAuthenticationToken authentication(String userEmail) {
         UserDetails userDetails = authDetailsService.loadUserByUsername(userEmail);
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

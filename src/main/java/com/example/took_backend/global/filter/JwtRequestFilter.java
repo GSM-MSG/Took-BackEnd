@@ -1,11 +1,11 @@
 package com.example.took_backend.global.filter;
 
-import com.example.took_backend.global.exception.ErrorCode;
+import com.example.took_backend.domain.auth.exception.BlackListAlreadyExistException;
 import com.example.took_backend.global.exception.exceptionCollection.TokenNotVaildException;
-import com.example.took_backend.global.security.auth.AuthDetailsService;
 import com.example.took_backend.global.security.jwt.TokenProvider;
 import com.example.took_backend.global.security.jwt.properties.JwtProperties;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -22,16 +22,19 @@ import java.io.IOException;
 public class JwtRequestFilter extends OncePerRequestFilter {
 
     private final TokenProvider tokenProvider;
-    private final AuthDetailsService userDetailService;
     private final JwtProperties jwtProperties;
+    private final RedisTemplate redisTemplate;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
             String accessToken = request.getHeader("Authorization");
             if(accessToken != null) {
+                System.out.println(accessToken);
                 tokenProvider.extractAllClaims(accessToken, jwtProperties.getAccessSecret());
-                if (!tokenProvider.getTokenType(accessToken, jwtProperties.getAccessSecret()).equals("accessToken")) {
+                if (!tokenProvider.getTokenType(accessToken, jwtProperties.getAccessSecret()).equals("accessToken")){
                     throw new TokenNotVaildException("Token is not valid");
+                }else if(redisTemplate.opsForValue().get(accessToken)!=null){
+                    throw new BlackListAlreadyExistException("블랙리스트에 이미 등록되어있습니다.");
                 }
                 String email = tokenProvider.getUserEmail(accessToken, jwtProperties.getAccessSecret());
                 registerSecurityContext(request, email);
