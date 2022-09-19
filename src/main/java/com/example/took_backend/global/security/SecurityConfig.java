@@ -45,7 +45,8 @@ public class SecurityConfig {
                         "/auth",
                         "/user",
                         "/email"
-                ).permitAll()
+                ).permitAll().and()
+                .authorizeRequests()
                 .antMatchers(HttpMethod.HEAD,
                         "/email"
                 ).permitAll()
