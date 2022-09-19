@@ -24,7 +24,7 @@ public class UserController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> deleteUser(@Valid @RequestParam(value = "password",required = false) UserDeleteRequest userDeleteRequest){
+    public ResponseEntity<Void> deleteUser(@RequestParam(value = "password") UserDeleteRequest userDeleteRequest){
         userDeleteService.execute(userDeleteRequest);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
