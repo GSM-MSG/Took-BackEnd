@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 @Component
@@ -26,7 +27,7 @@ public class TokenProvider {
 
     private final AuthDetailsService authDetailsService;
     private final JwtProperties jwtProperties;
-    private final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 120; // 2시간
+    private final long ACCESS_TOKEN_EXPIRE_TIME = 60 * 120; // 2시간
     private final long REFRESH_TOKEN_EXPIRE_TIME = ACCESS_TOKEN_EXPIRE_TIME * 12 * 7; // 일주일
 
     @AllArgsConstructor
@@ -49,6 +50,19 @@ public class TokenProvider {
         return Keys.hmacShaKeyFor(bytes);
     }
 
+    // Token 생성
+    private String generateToken(String userEmail, TokenType tokenType, String secret, long expireTime) {
+        final Claims claims = Jwts.claims();
+        claims.put(TokenClaimName.USER_EMAIL.value, userEmail);
+        claims.put(TokenClaimName.TOKEN_TYPE.value, tokenType);
+        return Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + expireTime))
+                .signWith(getSignInKey(secret), SignatureAlgorithm.HS256)
+                .compact();
+    }
+
     // 모든 Claims 추출 ( Payload에 들어가는 값은 Claims 이라고 부른다 )
     public Claims extractAllClaims(String token, String secret) {
         token = token.replace("Bearer ", "");
@@ -64,8 +78,8 @@ public class TokenProvider {
 
     }
 
-    public Date getExpiredAtToken(String token, String secret) {
-        return extractAllClaims(token, secret).getExpiration();
+    public ZonedDateTime getExpiredAtToken(String token, String secret) {
+        return ZonedDateTime.now().plusSeconds(ACCESS_TOKEN_EXPIRE_TIME);
     }
 
 
@@ -78,19 +92,6 @@ public class TokenProvider {
     // 토큰 타입 확인
     public String getTokenType(String token, String secret) {
         return extractAllClaims(token, secret).get(TokenClaimName.TOKEN_TYPE.value, String.class);
-    }
-
-    // Token 생성
-    private String generateToken(String userEmail, TokenType tokenType, String secret, long expireTime) {
-        final Claims claims = Jwts.claims();
-        claims.put(TokenClaimName.USER_EMAIL.value, userEmail);
-        claims.put(TokenClaimName.TOKEN_TYPE.value, tokenType);
-        return Jwts.builder()
-                .setClaims(claims)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + expireTime))
-                .signWith(getSignInKey(secret), SignatureAlgorithm.HS256)
-                .compact();
     }
 
     // AccessToken 토큰 생성
@@ -108,4 +109,5 @@ public class TokenProvider {
         UserDetails userDetails = authDetailsService.loadUserByUsername(userEmail);
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
+
 }
