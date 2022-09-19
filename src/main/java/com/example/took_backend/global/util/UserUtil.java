@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class GetUserUtil {
+public class UserUtil {
     private final UserRepository userRepository;
 
-    public User getUser(){
+    public User currentUser(){
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         return userRepository.findUserByEmail(email).orElseThrow(()-> new UserNotFoundException("유저가 없습니다"));
     }
