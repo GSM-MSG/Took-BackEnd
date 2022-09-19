@@ -1,8 +1,8 @@
 package com.example.took_backend.domain.auth.service;
 
-import com.example.took_backend.domain.auth.dto.response.NewTokenResponse;
 import com.example.took_backend.domain.auth.entity.RefreshToken;
 import com.example.took_backend.domain.auth.exception.RefreshTokenNotFoundException;
+import com.example.took_backend.domain.auth.presentation.dto.response.NewTokenResponse;
 import com.example.took_backend.domain.auth.repository.RefreshTokenRepository;
 import com.example.took_backend.global.exception.exceptionCollection.TokenNotVaildException;
 import com.example.took_backend.global.security.jwt.TokenProvider;
