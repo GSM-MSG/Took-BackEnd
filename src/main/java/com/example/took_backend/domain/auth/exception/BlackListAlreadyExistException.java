@@ -6,11 +6,11 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class AccessTokenAlreadyExistException extends RuntimeException{
+public class BlackListAlreadyExistException extends RuntimeException{
     private final ErrorCode errorCode;
 
-    public AccessTokenAlreadyExistException(String message){
+    public BlackListAlreadyExistException(String message){
         super(message);
-        this.errorCode = ErrorCode.ACCESS_TOKEN_ALREADY_EXIST;
+        this.errorCode = ErrorCode.BLACK_LIST_ALREADY_EXIST;
     }
 }
