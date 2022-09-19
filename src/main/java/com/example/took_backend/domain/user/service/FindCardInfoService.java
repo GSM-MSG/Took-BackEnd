@@ -7,6 +7,7 @@ import com.example.took_backend.domain.user.exception.CardNotFoundException;
 import com.example.took_backend.domain.user.presentation.dto.response.MyCardInfoResponse;
 import com.example.took_backend.domain.user.repository.UserRepository;
 import com.example.took_backend.domain.user.exception.UserNotFoundException;
+import com.example.took_backend.global.util.UserUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,12 +17,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Slf4j
 public class FindCardInfoService {
-    private final UserRepository userRepository;
     private final BusinessCardRepository businessCardRepository;
+    private final UserUtil userUtil;
 
     public MyCardInfoResponse findCardInfo(){
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userRepository.findUserByEmail(email).orElseThrow(()-> new UserNotFoundException("유저가 없습니다"));
+        User user = userUtil.currentUser();
         return toResponse(businessCardRepository.findBusinessCardByUser(user).orElseThrow(()-> new CardNotFoundException("명함이 없습니다")));
     }
     public MyCardInfoResponse toResponse(BusinessCard businessCard){

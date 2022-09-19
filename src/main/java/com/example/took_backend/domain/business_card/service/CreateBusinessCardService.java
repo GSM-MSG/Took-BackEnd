@@ -6,6 +6,7 @@ import com.example.took_backend.domain.business_card.presentation.dto.request.Cr
 import com.example.took_backend.domain.user.entity.User;
 import com.example.took_backend.domain.user.exception.UserNotFoundException;
 import com.example.took_backend.domain.user.repository.UserRepository;
+import com.example.took_backend.global.util.UserUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -14,11 +15,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CreateBusinessCardService {
     private final BusinessCardRepository businessCardRepository;
-    private final UserRepository userRepository;
-
+    private final UserUtil userUtil;
     public void execute(CreateBusinessCardRequest createBusinessCardRequest){
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        User userInfo = userRepository.findUserByEmail(email).orElseThrow(()-> new UserNotFoundException("유저를 찾을 수 없습니다."));
+        User userInfo = userUtil.currentUser();
         BusinessCard businessCard = BusinessCard.builder()
                 .frontUrl(createBusinessCardRequest.getFrontUrl())
                 .backUrl(createBusinessCardRequest.getBackUrl())
