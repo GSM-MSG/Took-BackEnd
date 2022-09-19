@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 @Getter
@@ -14,5 +15,5 @@ import java.util.Date;
 public class NewTokenResponse {
     private String accessToken;
     private String refreshToken;
-    private Date expiredAt;
+    private ZonedDateTime expiredAt;
 }
