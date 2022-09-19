@@ -32,7 +32,7 @@ public class SignInService {
         }
         String accessToken = tokenProvider.generatedAccessToken(request.getEmail());
         String refreshToken = tokenProvider.generatedRefreshToken(request.getEmail());
-        RefreshTokenAuthEntity entityToRedis = new RefreshTokenAuthEntity(refreshToken, request.getEmail(), tokenProvider.getREFRESH_TOKEN_EXPIRE_TIME());
+        RefreshTokenAuthEntity entityToRedis = new RefreshTokenAuthEntity(request.getEmail(), refreshToken, tokenProvider.getREFRESH_TOKEN_EXPIRE_TIME());
         refreshTokenRepository.save(entityToRedis);
         return UserSignInResponse.builder()
                 .accessToken(accessToken)
