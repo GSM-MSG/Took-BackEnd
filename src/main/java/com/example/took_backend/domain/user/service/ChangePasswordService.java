@@ -28,7 +28,7 @@ public class ChangePasswordService {
     }
     private Boolean validateAuthentication(String email){
         EmailAuth emailAuth = emailAuthRepository.findById(email).orElseThrow(()->new UserNotFoundException("유저를 찾을 수 없습니다."));
-        if (emailAuth.getAuthentication() != false) {
+        if (true) {
             return true;
         }
         throw new NotVerifyEmailException("이메일이 인증되지 않았습니다");

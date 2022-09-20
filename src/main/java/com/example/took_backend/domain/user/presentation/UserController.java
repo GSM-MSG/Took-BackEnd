@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -25,7 +27,7 @@ public class UserController {
         return new ResponseEntity<>(findCardInfoService.findCardInfo(), HttpStatus.OK);
     }
     @PatchMapping
-    public ResponseEntity<Void> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest){
+    public ResponseEntity<Void> changePassword(@RequestBody @Valid ChangePasswordRequest changePasswordRequest){
         changePasswordService.execute(changePasswordRequest);
         return new ResponseEntity<>(HttpStatus.OK);
     }
