@@ -40,7 +40,7 @@ public class User extends BaseTimeEntity {
     @Builder.Default
     private List<CardExchange> cardExchanges = new ArrayList<>();
 
-    public void update(String password){
+    public void updatePassword(String password){
         this.password = password;
     }
 }

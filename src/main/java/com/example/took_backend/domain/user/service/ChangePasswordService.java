@@ -6,7 +6,6 @@ import com.example.took_backend.domain.email.repository.EmailAuthRepository;
 import com.example.took_backend.domain.user.entity.User;
 import com.example.took_backend.domain.user.exception.UserNotFoundException;
 import com.example.took_backend.domain.user.presentation.dto.request.ChangePasswordRequest;
-import com.example.took_backend.domain.user.repository.UserRepository;
 import com.example.took_backend.global.util.UserUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,7 +23,7 @@ public class ChangePasswordService {
     public void execute(ChangePasswordRequest changePasswordRequest){
         User user = userUtil.currentUser();
         if(validateAuthentication(user.getEmail())){
-            user.update(passwordEncoder.encode(changePasswordRequest.getPassword()));
+            user.updatePassword(passwordEncoder.encode(changePasswordRequest.getPassword()));
         }
     }
     private Boolean validateAuthentication(String email){
