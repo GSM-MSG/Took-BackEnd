@@ -30,10 +30,10 @@ public class  LogoutService {
 
     @Transactional
     public void execute(String accessToken){
-        User userInfo = userUtil.currentUser();
-        RefreshToken refreshToken = refreshTokenRepository.findRefreshTokenByEmail(userInfo.getEmail()).orElseThrow(()->new RefreshTokenNotFoundException("리프레시 토큰을 찾을 수 없습니다."));
+        User user = userUtil.currentUser();
+        RefreshToken refreshToken = refreshTokenRepository.findRefreshTokenByEmail(user.getEmail()).orElseThrow(()->new RefreshTokenNotFoundException("리프레시 토큰을 찾을 수 없습니다."));
         refreshTokenRepository.delete(refreshToken);
-        saveBlackList(userInfo.getEmail(),accessToken);
+        saveBlackList(user.getEmail(),accessToken);
     }
     private void saveBlackList(String email, String accessToken){
         if(redisTemplate.opsForValue().get(accessToken)!=null){

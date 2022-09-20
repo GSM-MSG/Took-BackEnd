@@ -20,8 +20,8 @@ public class ExchangeCardListService {
     private final UserUtil userUtil;
     @Transactional(readOnly = true)
     public List<ExchangeCardListResponse> execute() {
-        User userInfo = userUtil.currentUser();
-        List<CardExchange> cardExchange = cardExchangeRepository.findAllByUser(userInfo);
+        User user = userUtil.currentUser();
+        List<CardExchange> cardExchange = cardExchangeRepository.findAllByUser(user);
         List<BusinessCard> businessCardList = getBusinessCardList(cardExchange);
         List<ExchangeCardListResponse> exchangeCardListResponses = getBusinessCardInfoList(businessCardList);
         return exchangeCardListResponses;

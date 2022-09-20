@@ -14,11 +14,11 @@ public class CreateBusinessCardService {
     private final BusinessCardRepository businessCardRepository;
     private final UserUtil userUtil;
     public void execute(CreateBusinessCardRequest createBusinessCardRequest){
-        User userInfo = userUtil.currentUser();
+        User user = userUtil.currentUser();
         BusinessCard businessCard = BusinessCard.builder()
                 .frontUrl(createBusinessCardRequest.getFrontUrl())
                 .backUrl(createBusinessCardRequest.getBackUrl())
-                .user(userInfo)
+                .user(user)
                 .build();
         businessCardRepository.save(businessCard);
     }

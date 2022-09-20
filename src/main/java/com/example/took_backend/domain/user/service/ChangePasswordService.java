@@ -22,9 +22,9 @@ public class ChangePasswordService {
 
     @Transactional
     public void execute(ChangePasswordRequest changePasswordRequest){
-        User userInfo = userUtil.currentUser();
-        if(validateAuthentication(userInfo.getEmail())){
-            userInfo.update(passwordEncoder.encode(changePasswordRequest.getPassword()));
+        User user = userUtil.currentUser();
+        if(validateAuthentication(user.getEmail())){
+            user.update(passwordEncoder.encode(changePasswordRequest.getPassword()));
         }
     }
     private Boolean validateAuthentication(String email){
