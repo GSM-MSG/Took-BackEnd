@@ -3,7 +3,6 @@ package com.example.took_backend.domain.business_card.entity;
 import com.example.took_backend.domain.user.entity.User;
 import com.example.took_backend.global.entity.BaseTimeEntity;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

@@ -5,12 +5,9 @@ import com.example.took_backend.domain.business_card.repository.BusinessCardRepo
 import com.example.took_backend.domain.user.entity.User;
 import com.example.took_backend.domain.user.exception.CardNotFoundException;
 import com.example.took_backend.domain.user.presentation.dto.response.MyCardInfoResponse;
-import com.example.took_backend.domain.user.repository.UserRepository;
-import com.example.took_backend.domain.user.exception.UserNotFoundException;
 import com.example.took_backend.global.util.UserUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
