@@ -15,6 +15,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 @Service
@@ -38,11 +39,11 @@ public class  LogoutService {
         if(redisTemplate.opsForValue().get(accessToken)!=null){
             throw new BlackListAlreadyExistException("블랙리스트에 이미 등록되어있습니다.");
         }
-        Date accessTokenExpire = tokenProvider.getExpiredAtToken(accessToken,jwtProperties.getAccessSecret());
+        ZonedDateTime accessTokenExpire = tokenProvider.getExpiredAtToken(accessToken,jwtProperties.getAccessSecret());
         BlackList blackList = BlackList.builder()
                 .email(email)
                 .accessToken(accessToken)
-                .timeToLive(accessTokenExpire.getTime())
+                .timeToLive(accessTokenExpire)
                 .build();
         blackListRepository.save(blackList);
 
