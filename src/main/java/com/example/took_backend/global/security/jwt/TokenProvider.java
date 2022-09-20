@@ -1,12 +1,10 @@
 package com.example.took_backend.global.security.jwt;
 
 import com.example.took_backend.global.exception.exceptionCollection.TokenExpirationException;
+import com.example.took_backend.global.exception.exceptionCollection.TokenNotVaildException;
 import com.example.took_backend.global.security.auth.AuthDetailsService;
 import com.example.took_backend.global.security.jwt.properties.JwtProperties;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -74,6 +72,8 @@ public class TokenProvider {
                     .getBody();
         } catch (ExpiredJwtException e) {
             throw new TokenExpirationException("The token has expired.");
+        } catch (JwtException e) {
+            throw new TokenNotVaildException("토큰이 올바르지 않습니다.");
         }
 
     }

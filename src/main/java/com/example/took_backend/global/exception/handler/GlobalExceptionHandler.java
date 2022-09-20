@@ -115,10 +115,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
     }
     @ExceptionHandler(BlackListAlreadyExistException.class)
-    public ResponseEntity<ErrorResponse>AccessTokenAlreadyExist(BlackListAlreadyExistException exception){
+    public ResponseEntity<ErrorResponse> AccessTokenAlreadyExist(BlackListAlreadyExistException exception){
         ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(),exception.getErrorCode().getStatus());
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
     }
+
     private void printError(HttpServletRequest request, RuntimeException ex, String message) {
         log.error(request.getRequestURI());
         log.error(message);
