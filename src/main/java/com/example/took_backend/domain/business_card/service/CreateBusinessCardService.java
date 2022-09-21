@@ -4,11 +4,8 @@ import com.example.took_backend.domain.business_card.repository.BusinessCardRepo
 import com.example.took_backend.domain.business_card.entity.BusinessCard;
 import com.example.took_backend.domain.business_card.presentation.dto.request.CreateBusinessCardRequest;
 import com.example.took_backend.domain.user.entity.User;
-import com.example.took_backend.domain.user.exception.UserNotFoundException;
-import com.example.took_backend.domain.user.repository.UserRepository;
 import com.example.took_backend.global.util.UserUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,11 +14,11 @@ public class CreateBusinessCardService {
     private final BusinessCardRepository businessCardRepository;
     private final UserUtil userUtil;
     public void execute(CreateBusinessCardRequest createBusinessCardRequest){
-        User userInfo = userUtil.currentUser();
+        User user = userUtil.currentUser();
         BusinessCard businessCard = BusinessCard.builder()
                 .frontUrl(createBusinessCardRequest.getFrontUrl())
                 .backUrl(createBusinessCardRequest.getBackUrl())
-                .user(userInfo)
+                .user(user)
                 .build();
         businessCardRepository.save(businessCard);
     }

@@ -29,13 +29,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
             String accessToken = request.getHeader("Authorization");
             if(accessToken != null) {
-                System.out.println(accessToken);
                 tokenProvider.extractAllClaims(accessToken, jwtProperties.getAccessSecret());
-                if (!tokenProvider.getTokenType(accessToken, jwtProperties.getAccessSecret()).equals("accessToken")){
+                System.out.printf(tokenProvider.getTokenType(accessToken,jwtProperties.getAccessSecret()));
+                if (!tokenProvider.getTokenType(accessToken, jwtProperties.getAccessSecret()).equals("ACCESS_TOKEN"))
                     throw new TokenNotVaildException("Token is not valid");
-                }else if(redisTemplate.opsForValue().get(accessToken)!=null){
+                else if(redisTemplate.opsForValue().get(accessToken)!=null)
                     throw new BlackListAlreadyExistException("블랙리스트에 이미 등록되어있습니다.");
-                }
                 String email = tokenProvider.getUserEmail(accessToken, jwtProperties.getAccessSecret());
                 registerSecurityContext(request, email);
             }

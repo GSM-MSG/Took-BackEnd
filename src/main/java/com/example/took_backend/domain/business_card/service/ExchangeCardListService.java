@@ -5,10 +5,8 @@ import com.example.took_backend.domain.business_card.entity.CardExchange;
 import com.example.took_backend.domain.business_card.repository.CardExchangeRepository;
 import com.example.took_backend.domain.business_card.presentation.dto.response.ExchangeCardListResponse;
 import com.example.took_backend.domain.user.entity.User;
-import com.example.took_backend.domain.user.exception.UserNotFoundException;
-import com.example.took_backend.domain.user.repository.UserRepository;
+import com.example.took_backend.global.util.UserUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,13 +17,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ExchangeCardListService {
     private final CardExchangeRepository cardExchangeRepository;
-    private final UserRepository userRepository;
-
+    private final UserUtil userUtil;
     @Transactional(readOnly = true)
     public List<ExchangeCardListResponse> execute() {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        User userInfo = userRepository.findUserByEmail(email).orElseThrow(() -> new UserNotFoundException("유저가 존재하지 않음"));
-        List<CardExchange> cardExchange = cardExchangeRepository.findAllByUser(userInfo);
+        User user = userUtil.currentUser();
+        List<CardExchange> cardExchange = cardExchangeRepository.findAllByUser(user);
         List<BusinessCard> businessCardList = getBusinessCardList(cardExchange);
         List<ExchangeCardListResponse> exchangeCardListResponses = getBusinessCardInfoList(businessCardList);
         return exchangeCardListResponses;

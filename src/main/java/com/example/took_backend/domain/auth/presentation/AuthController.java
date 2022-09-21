@@ -13,8 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -27,7 +27,7 @@ public class AuthController {
 
 
     @PostMapping("/signup")
-    public ResponseEntity<Void> signUp(@RequestBody UserSignUpRequest userReq) {
+    public ResponseEntity<Void> signUp(@RequestBody @Valid UserSignUpRequest userReq) {
         signupService.execute(userReq);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
