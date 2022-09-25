@@ -16,7 +16,6 @@ public class ExChangeCardService {
 
     public void BusineessCardExchange(String uuid) {
         User currentUser = userUtil.currentUser();
-        currentUser.getBusinessCard();
 
     }
 }
