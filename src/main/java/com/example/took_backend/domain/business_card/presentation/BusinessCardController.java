@@ -1,6 +1,7 @@
 package com.example.took_backend.domain.business_card.presentation;
 
 import com.example.took_backend.domain.business_card.presentation.dto.request.CreateBusinessCardRequest;
+import com.example.took_backend.domain.business_card.presentation.dto.request.ExChangeBusinessCardRequest;
 import com.example.took_backend.domain.business_card.presentation.dto.response.ExchangeCardListResponse;
 import com.example.took_backend.domain.business_card.presentation.dto.response.ExchangeCardResponse;
 import com.example.took_backend.domain.business_card.service.CreateBusinessCardService;
@@ -35,7 +36,7 @@ public class BusinessCardController {
     }
 
     @PostMapping("/send")
-    public void exchangeCard(@RequestBody String uuid) {
-        exChangeCardService.BusineessCardExchange(uuid);
+    public ExchangeCardResponse exchangeCard(@RequestBody ExChangeBusinessCardRequest exChangeBusinessCardRequest) {
+        return exChangeCardService.BusineessCardExchange(exChangeBusinessCardRequest);
     }
 }
