@@ -2,18 +2,21 @@ package com.example.took_backend.domain.business_card.entity;
 
 import com.example.took_backend.domain.user.entity.User;
 import com.example.took_backend.global.entity.BaseTimeEntity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
+@Builder
 @IdClass(CardExchangeId.class)
-public class CardExchange extends BaseTimeEntity {
+public class CardExchange extends BaseTimeEntity implements Serializable {
     @Id
     @ManyToOne
     @JoinColumn(name = "businesscard_uuid")
@@ -27,4 +30,6 @@ public class CardExchange extends BaseTimeEntity {
     @ManyToOne
     @JoinColumn(name = "businesscard_user_uuid")
     private User businessUser;
+
+
 }
