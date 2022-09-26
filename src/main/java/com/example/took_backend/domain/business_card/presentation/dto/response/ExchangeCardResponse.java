@@ -16,5 +16,7 @@ public class ExchangeCardResponse {
     private final String backUrl;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "YYYY-MM-DD'T'HH:mm:ss")
     private final ZonedDateTime createdAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "YYYY-MM-DD'T'HH:mm:ss")
+    private final ZonedDateTime updatedAt;
 
 }
