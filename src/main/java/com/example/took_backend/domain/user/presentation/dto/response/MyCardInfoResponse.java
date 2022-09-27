@@ -1,8 +1,10 @@
 package com.example.took_backend.domain.user.presentation.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Getter @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -11,6 +13,8 @@ public class MyCardInfoResponse {
     private String uuid;
     private String frontUrl;
     private String backUrl;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "YYYY-MM-DD'T'HH:mm:ss")
+    private ZonedDateTime createdAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "YYYY-MM-DD'T'HH:mm:ss")
+    private ZonedDateTime updatedAt;
 }
