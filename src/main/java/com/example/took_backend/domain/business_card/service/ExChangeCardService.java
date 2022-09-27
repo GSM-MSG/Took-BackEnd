@@ -15,6 +15,8 @@ import com.example.took_backend.global.util.UserUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class ExChangeCardService {
@@ -22,7 +24,7 @@ public class ExChangeCardService {
     private final CardExchangeRepository cardExchangeRepository;
     private final BusinessCardRepository businessCardRepository;
     public ExchangeCardResponse BusineessCardExchange(ExChangeBusinessCardRequest uuid) {
-        User currentUser = userUtil.currentUser(); // 사용자가 있어요~
+        User currentUser = userUtil.currentUser();
         BusinessCard businessCard = businessCardRepository.findById(uuid.getUuid())
                 .orElseThrow(() -> new BusinessCardNotFoundException("명함을 찾을 수 없습니다."));
         if(businessCard.getUser().getUuid().isEmpty()) {
@@ -34,8 +36,13 @@ public class ExChangeCardService {
                 .businessCard(businessCard)
                 .build();
         cardExchangeRepository.save(cardExchange);
-        ExchangeCardResponse exchangeCardResponse = ExchangeCardResponse.builder()
-                .uuid()
+        return ExchangeCardResponse.builder()
+                .uuid(businessCard.getUuid())
+                .frontUrl(businessCard.getFrontUrl())
+                .backUrl(businessCard.getBackUrl())
+                .createdAt(ZonedDateTime.now())
+                .updatedAt(businessCard.getUpdatedAt())
+                .build();
 
     }
 }
