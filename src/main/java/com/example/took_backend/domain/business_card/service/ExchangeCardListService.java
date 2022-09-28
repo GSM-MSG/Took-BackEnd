@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.PrePersist;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +28,7 @@ public class ExchangeCardListService {
         return exchangeCardListResponses;
     }
 
+    @PrePersist
     private List<ExchangeCardListResponse> getBusinessCardInfoList(List<BusinessCard> businessCardList) {
         List<ExchangeCardListResponse> list = businessCardList.stream().map(cardInfo-> ExchangeCardListResponse.builder()
                 .uuid(cardInfo.getUuid())
