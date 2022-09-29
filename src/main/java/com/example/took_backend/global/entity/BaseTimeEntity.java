@@ -14,11 +14,10 @@ import java.time.ZonedDateTime;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class BaseTimeEntity {
-    @CreatedDate
     @Column(name = "created_at")
     private ZonedDateTime createdAt;
-
-    @LastModifiedDate
     @Column(name = "updated_at")
     private ZonedDateTime updatedAt;
+
+    public void 
 }

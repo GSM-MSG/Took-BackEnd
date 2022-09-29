@@ -2,8 +2,8 @@ package com.example.took_backend.domain.business_card.service;
 
 import com.example.took_backend.domain.business_card.entity.BusinessCard;
 import com.example.took_backend.domain.business_card.entity.CardExchange;
-import com.example.took_backend.domain.business_card.repository.CardExchangeRepository;
 import com.example.took_backend.domain.business_card.presentation.dto.response.ExchangeCardListResponse;
+import com.example.took_backend.domain.business_card.repository.CardExchangeRepository;
 import com.example.took_backend.domain.user.entity.User;
 import com.example.took_backend.global.util.UserUtil;
 import lombok.RequiredArgsConstructor;

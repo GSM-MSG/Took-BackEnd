@@ -13,6 +13,8 @@ import com.example.took_backend.domain.user.exception.UserNotFoundException;
 import com.example.took_backend.domain.user.repository.UserRepository;
 import com.example.took_backend.global.util.UserUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.time.ZonedDateTime;
