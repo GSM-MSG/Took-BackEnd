@@ -7,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ErrorCode {
     AUTH_CODE_MISMATCH("인증번호가 일치하지 않습니다,",400),
+    PASSWORD_WRONG("비밀번호가 올바르지 않습니다.", 400),
     NOT_VERIFY_EMAIL("이메일이 확인 되지 않음", 401),
     TOKEN_EXPIRATION("토큰이 만료 되었습니다.", 401),
     TOKEN_NOT_VALID("토큰이 유효 하지 않습니다.", 401),
