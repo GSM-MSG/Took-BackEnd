@@ -38,13 +38,7 @@ public class ExChangeCardService {
                 .businessCard(businessCard)
                 .build();
         cardExchangeRepository.save(cardExchange);
-        return ExchangeCardResponse.builder()
-                .uuid(businessCard.getUuid())
-                .frontUrl(businessCard.getFrontUrl())
-                .backUrl(businessCard.getBackUrl())
-                .createdAt(ZonedDateTime.now())
-                .updatedAt(businessCard.getUpdatedAt())
-                .build();
+        return new ExchangeCardResponse(businessCard);
 
     }
 }
