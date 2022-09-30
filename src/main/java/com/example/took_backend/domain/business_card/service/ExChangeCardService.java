@@ -2,7 +2,6 @@ package com.example.took_backend.domain.business_card.service;
 
 import com.example.took_backend.domain.business_card.entity.BusinessCard;
 import com.example.took_backend.domain.business_card.entity.CardExchange;
-import com.example.took_backend.domain.business_card.entity.CardExchangeId;
 import com.example.took_backend.domain.business_card.exception.BusinessCardNotFoundException;
 import com.example.took_backend.domain.business_card.presentation.dto.request.ExChangeBusinessCardRequest;
 import com.example.took_backend.domain.business_card.presentation.dto.response.ExchangeCardResponse;
@@ -10,14 +9,9 @@ import com.example.took_backend.domain.business_card.repository.BusinessCardRepo
 import com.example.took_backend.domain.business_card.repository.CardExchangeRepository;
 import com.example.took_backend.domain.user.entity.User;
 import com.example.took_backend.domain.user.exception.UserNotFoundException;
-import com.example.took_backend.domain.user.repository.UserRepository;
 import com.example.took_backend.global.util.UserUtil;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
-
-import java.time.ZonedDateTime;
 
 @Service
 @RequiredArgsConstructor
