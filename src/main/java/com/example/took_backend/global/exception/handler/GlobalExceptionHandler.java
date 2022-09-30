@@ -1,6 +1,7 @@
 package com.example.took_backend.global.exception.handler;
 
 import com.example.took_backend.domain.auth.exception.*;
+import com.example.took_backend.domain.business_card.exception.BusinessCardNotFoundException;
 import com.example.took_backend.domain.email.exception.AuthCodeExpiredException;
 import com.example.took_backend.domain.email.exception.AuthCodeMismatchException;
 import com.example.took_backend.domain.email.exception.ManyRequestEmailAuthException;
@@ -116,6 +117,12 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler(BlackListAlreadyExistException.class)
     public ResponseEntity<ErrorResponse> AccessTokenAlreadyExist(BlackListAlreadyExistException exception){
+        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(),exception.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
+    }
+
+    @ExceptionHandler(BusinessCardNotFoundException.class)
+    public ResponseEntity<ErrorResponse> BusinessCardNotFound(BusinessCardNotFoundException exception){
         ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(),exception.getErrorCode().getStatus());
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
     }

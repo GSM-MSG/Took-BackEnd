@@ -12,6 +12,7 @@ public enum ErrorCode {
     TOKEN_EXPIRATION("토큰이 만료 되었습니다.", 401),
     TOKEN_NOT_VALID("토큰이 유효 하지 않습니다.", 401),
     USER_NOT_FOUND("유저를 찾을 수 없습니다.",404),
+    BUSINESSCARD_NOT_FOUND("명함을 찾을 수 없습니다.", 404),
     CARD_NOT_FOUND("명함을 찾을 수 없습니다.",404),
     REFRESH_TOKEN_NOT_FOUND("리프레시 토큰을 찾을 수가 없습니다.",404),
     EMAIL_ALREADY_EXIST("존재하는 이메일 입니다.", 409),
