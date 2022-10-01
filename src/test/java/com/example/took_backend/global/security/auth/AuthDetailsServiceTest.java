@@ -15,10 +15,4 @@ class AuthDetailsServiceTest {
     @Autowired
     ApplicationContext applicationContext;
 
-    @Test
-    public void testDi() {
-        AuthDetailsService bean = applicationContext.getBean(AuthDetailsService.class);
-        assertThat(bean).isNotNull();
-    }
-
 }
