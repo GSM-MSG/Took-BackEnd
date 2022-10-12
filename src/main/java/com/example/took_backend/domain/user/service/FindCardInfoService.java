@@ -9,6 +9,7 @@ import com.example.took_backend.global.util.UserUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +18,7 @@ public class FindCardInfoService {
     private final BusinessCardRepository businessCardRepository;
     private final UserUtil userUtil;
 
+    @Transactional(rollbackFor = Exception.class , readOnly = true)
     public MyCardInfoResponse findCardInfo(){
         User user = userUtil.currentUser();
         return toResponse(businessCardRepository.findBusinessCardByUser(user).orElseThrow(()-> new CardNotFoundException("명함이 없습니다")));

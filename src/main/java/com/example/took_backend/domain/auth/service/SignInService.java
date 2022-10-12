@@ -24,7 +24,7 @@ public class SignInService {
     private final TokenProvider tokenProvider;
     private final JwtProperties jwtProperties;
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public UserSignInResponse signIn(UserSignInRequest request) {
         User user = userRepository.findUserByEmail(request.getEmail()).orElseThrow(() -> new UserNotFoundException("유저를 찾지 못했습니다."));
         if(!passwordEncoder.matches(request.getPassword(), user.getPassword())) {

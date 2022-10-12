@@ -20,7 +20,7 @@ public class SignupService {
     private final EmailAuthRepository emailAuthRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void execute(UserSignUpRequest request) {
         if(userRepository.existsByEmail(request.getEmail())) {
             throw new EmailAlreadyExistException("이메일이 이미 DB에 존재 합니다.");

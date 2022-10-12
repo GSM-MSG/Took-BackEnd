@@ -19,7 +19,7 @@ public class ChangePasswordService {
     private final PasswordEncoder passwordEncoder;
     private final EmailAuthRepository emailAuthRepository;
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void execute(ChangePasswordRequest changePasswordRequest){
         User user = userUtil.currentUser();
         if(validateAuthentication(user.getEmail())){
