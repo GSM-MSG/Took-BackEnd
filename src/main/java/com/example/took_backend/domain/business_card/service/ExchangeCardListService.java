@@ -19,7 +19,8 @@ import java.util.stream.Collectors;
 public class ExchangeCardListService {
     private final CardExchangeRepository cardExchangeRepository;
     private final UserUtil userUtil;
-    @Transactional(readOnly = true)
+
+    @Transactional(readOnly = true,rollbackFor = Exception.class)
     public List<ExchangeCardListResponse> execute() {
         User user = userUtil.currentUser();
         List<CardExchange> cardExchange = cardExchangeRepository.findAllByUser(user);

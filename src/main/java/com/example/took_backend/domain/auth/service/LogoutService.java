@@ -28,7 +28,7 @@ public class  LogoutService {
     private final RedisTemplate redisTemplate;
     private final UserUtil userUtil;
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void execute(String accessToken){
         User user = userUtil.currentUser();
         RefreshToken refreshToken = refreshTokenRepository.findRefreshTokenByEmail(user.getEmail()).orElseThrow(()->new RefreshTokenNotFoundException("리프레시 토큰을 찾을 수 없습니다."));

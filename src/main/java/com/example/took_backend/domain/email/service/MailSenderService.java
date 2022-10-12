@@ -26,7 +26,7 @@ public class MailSenderService {
     private final EmailAuthRepository emailAuthRepository;
 
     @Async
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void execute(EmailSentDto emailSentDto){
 
         Random random = new Random();

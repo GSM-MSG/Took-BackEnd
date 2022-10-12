@@ -8,6 +8,7 @@ import com.example.took_backend.domain.image.exception.FailedToUploadException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -27,6 +28,7 @@ public class ImageUploadService {
 
     private final AmazonS3 amazonS3;
 
+    @Transactional(rollbackFor = Exception.class)
     public List<String> upload(List<MultipartFile> multipartFile) {
         List<String> fileNameList = new ArrayList<>();
 

@@ -17,7 +17,7 @@ public class UserDeleteService {
     private final PasswordEncoder passwordEncoder;
     private final UserUtil userUtil;
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void execute(UserDeleteRequest userDeleteRequest){
         User user = userUtil.currentUser();
         if(!passwordEncoder.matches(userDeleteRequest.getPassword(), user.getPassword())) {

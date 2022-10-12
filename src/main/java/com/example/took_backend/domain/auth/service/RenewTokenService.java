@@ -20,7 +20,8 @@ public class RenewTokenService {
     private final RefreshTokenRepository refreshTokenRepository;
     private final TokenProvider tokenProvider;
     private final JwtProperties jwtProperties;
-    @Transactional
+
+    @Transactional(rollbackFor = Exception.class)
     public NewTokenResponse tokenReissuance(String reqToken) {
         String email = tokenProvider.getUserEmail(reqToken, jwtProperties.getRefreshSecret());
         RefreshToken token = refreshTokenRepository.findById(email)
